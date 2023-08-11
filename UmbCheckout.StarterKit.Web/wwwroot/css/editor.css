@@ -1,0 +1,130 @@
+
+
+/**umb_name:Lead*/
+.lead {
+	font-size: 1.25rem;
+	font-weight: 300;
+}
+
+/**umb_name:Paragraph*/
+p {
+}
+
+/**umb_name:Heading 2*/
+h2 {
+	font-size: 2rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Heading 3*/
+h3 {
+	font-size: 1.75rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Heading 4*/
+h4 {
+	font-size: 1.5rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Heading 5*/
+h5 {
+	font-size: 1.25rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Heading 6*/
+h6 {
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Paragraph (Heading 1)*/
+p.h1 {
+	font-size: 2.5rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Paragraph (Heading 2)*/
+p.h2 {
+	font-size: 2rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Paragraph (Heading 3)*/
+p.h3 {
+	font-size: 1.75rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Paragraph (Heading 4)*/
+p.h4 {
+	font-size: 1.5rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Paragraph (Heading 5)*/
+p.h5 {
+	font-size: 1.25rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Paragraph (Heading 6)*/
+p.h6 {
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/**umb_name:Display 1*/
+.display-1 {
+	font-size: 5rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+
+/**umb_name:Display 2*/
+.display-2 {
+	font-size: 4.5rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+
+/**umb_name:Display 3*/
+.display-3 {
+	font-size: 4rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+
+/**umb_name:Display 4*/
+.display-4 {
+	font-size: 3.5rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+
+/**umb_name:Display 5*/
+.display-5 {
+	font-size: 3rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+
+/**umb_name:Display 6*/
+.display-6 {
+	font-size: 2.5rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
