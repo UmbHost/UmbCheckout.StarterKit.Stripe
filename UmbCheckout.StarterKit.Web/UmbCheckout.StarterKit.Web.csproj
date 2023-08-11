@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MetaMomentum" Version="2.2.0" />
+    <PackageReference Include="Our.Umbraco.Community.Contentment" Version="4.4.4" />
+    <PackageReference Include="Our.Umbraco.TheDashboard" Version="10.0.1" />
+    <PackageReference Include="Our.Umbraco.UmbNav.Web" Version="2.0.8" />
+    <PackageReference Include="Skybrud.Umbraco.Redirects" Version="4.0.13" />
     <PackageReference Include="Umbraco.Cms" Version="10.6.1" />
   </ItemGroup>
 
