@@ -21,11 +21,12 @@ namespace UmbCheckout.StarterKit.Web.Controllers
             {
                 products = CurrentPage.Children()
                     .Where(x => x.Value<IEnumerable<IPublishedContent>>("categories").Select(x => x.Name)
-                    .Contains(category, StringComparer.CurrentCultureIgnoreCase));
+                    .Contains(category, StringComparer.CurrentCultureIgnoreCase))
+                    .Take(9);
             }
             else
             {
-                products = CurrentPage.Children();
+                products = CurrentPage.Children().Take(9);
             }
 
             var model = new ProductsViewModel(CurrentPage)
