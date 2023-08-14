@@ -34,11 +34,7 @@
         </div>
     </div>
 </section>
-<div class="py-5 bg-body-secondary">
-    <div class="container">
-        @await Html.GetBlockListHtmlAsync(Model.Content.Value<BlockListModel>("contentBlocks"))
-    </div>
-</div>
+@await Html.GetBlockListHtmlAsync(Model.Content.Value<BlockListModel>("contentBlocks"))
 <div class="py-5 bg-body-tertiary">
     <div class="container">
         <div class="row justify-content-center">

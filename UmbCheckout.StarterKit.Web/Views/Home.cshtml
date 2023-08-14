@@ -14,7 +14,7 @@
         <div class="col-lg-6">
             <headline htag="@(Model.Value<Headline>("heroHeading"))" />
             @(Model.Value<HtmlEncodedString>("heroText"))
-            
+
             @if (Model.HasValue("heroButtons"))
             {
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
@@ -27,3 +27,4 @@
         </div>
     </div>
 </div>
+@await Html.GetBlockListHtmlAsync(Model.Value<BlockListModel>("contentBlocks"))
