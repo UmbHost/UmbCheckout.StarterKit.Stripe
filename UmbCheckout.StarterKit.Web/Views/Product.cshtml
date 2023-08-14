@@ -45,14 +45,18 @@
                 </div>
             </div>
         }
-        <div class="row">
+        <div class="row" itemtype="https://schema.org/Product" itemscope>
+            <meta itemprop="sku" content="@Model.Value("sku")" />
+            <meta itemprop="name" content="@Model.Value("productName")" />
+            <meta itemprop="price" content="@(Model.Value<decimal>("umbCheckoutPrice"))" />
+            <meta itemprop="priceCurrency" content="@iso4217Code" />
             <div class="col-6">
                 <div id="productPhotos" class="carousel slide">
                     <div class="carousel-inner">
                         @foreach (var image in Model.Value<IEnumerable<MediaWithCrops>>("photos"))
                         {
                             <div class="carousel @Html.If(image == Model.Value<IEnumerable<MediaWithCrops>>("photos").FirstOrDefault(), "active")">
-                                <img src="@image.GetCropUrl("carousel")" class="d-block w-100 rounded-2 shadow" alt="@image.Value("alt")">
+                                <img itemprop="image" src="@image.GetCropUrl("carousel", UrlMode.Absolute)" class="d-block w-100 rounded-2 shadow" alt="@image.Value("alt")">
                             </div>
                         }
                     </div>
@@ -69,7 +73,8 @@
             <div class="col-5 offset-1">
                 <p class="h3 mb-3">@(Model.Value<decimal>("umbCheckoutPrice").ToString("C"))</p>
                 <p>
-                    <strong>Categories: </strong> @foreach (var category in Model.Value<IEnumerable<IPublishedContent>>("categories"))
+                    <strong>Categories: </strong>
+                    @foreach (var category in Model.Value<IEnumerable<IPublishedContent>>("categories"))
                     {
                         <a href="@Html.ToRewrittenUrl(Model.Parent.Url(), "category", category.Value<string>("categoryName"))">@category.Value("categoryName")</a>
                     }
@@ -80,8 +85,8 @@
                         <label for="quantity" class="form-label">@Umbraco.GetDictionaryValue("Quantity Label")</label>
                         <input class="form-control" type="number" name="quantity" value="1" min="1">
                     </div>
-                    <input type="hidden" name="id" value="@Model.Key" />
-                    <input type="hidden" name="currencyCode" value="@iso4217Code" />
+                    <input type="hidden" name="id" value="@Model.Key"/>
+                    <input type="hidden" name="currencyCode" value="@iso4217Code"/>
                     <button class="btn btn-primary" type="submit">@Umbraco.GetDictionaryValue("Add to Basket Button")</button>
                 }
                 @if (Model.HasValue("features"))
