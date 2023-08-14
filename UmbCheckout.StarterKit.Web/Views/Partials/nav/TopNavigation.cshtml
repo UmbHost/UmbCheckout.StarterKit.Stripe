@@ -1,4 +1,5 @@
 ﻿@using UmbCheckout.StarterKit.Web.Extensions
+@using UmbNav.Core.Extensions
 @using UmbNav.Core.Models
 @inherits UmbracoViewPage
 <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Main Navigation">
@@ -17,6 +18,7 @@
                         <li class="nav-item dropdown">
                             <umbnavitem menu-item="menuItem" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" active-class="active"></umbnavitem>
                             <ul class="dropdown-menu">
+                                <a class="dropdown-item" href="@menuItem.Url()" target="@menuItem.Target">Go to: @menuItem.Name</a>
                                 @foreach (var menuChild in menuItem.Children)
                                 {
                                     <umbnavitem menu-item="menuChild" class="dropdown-item" active-class="active"></umbnavitem>
