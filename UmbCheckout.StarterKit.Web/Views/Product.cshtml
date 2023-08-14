@@ -1,9 +1,15 @@
 ﻿@using Umbraco.Cms.Core.Models
 @using Umbraco.Cms.Core.Models.Blocks
 @using Umbraco.Cms.Core.Strings
+@using UmbCheckout.Stripe.Controllers.Surface
+@using System.Globalization
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
     Layout = "_Master.cshtml";
+
+    RegionInfo regionInfo = new RegionInfo(CultureInfo.CurrentUICulture.LCID);
+    string iso4217Code = regionInfo.ISOCurrencySymbol;
+
 }
 <section class="py-5 text-center container">
     <div class="row py-lg-5">
@@ -50,16 +56,17 @@
                 </div>
             </div>
             <div class="col-5 offset-1">
-                <div class="h3">@(Model.Value<decimal>("price").ToString("C"))</div>
-                <form>
+                <div class="h3">@(Model.Value<decimal>("umbCheckoutPrice").ToString("C"))</div>
+                @using (Html.BeginUmbracoForm<StripeBasketController>(nameof(StripeBasketController.Add), FormMethod.Post))
+                {
                     <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantity</label>
+                        <label for="quantity" class="form-label">@Umbraco.GetDictionaryValue("Quantity Label")</label>
                         <input class="form-control" type="number" name="quantity" value="1" min="1">
                     </div>
-                    <input type="hidden" name="id" value="262beb70-53a6-49b8-9e98-cfde2e85a78e">
-                    <input type="hidden" name="currencyCode" value="GBP">
-                    <button type="submit" class="btn btn-primary">@Umbraco.GetDictionaryValue("Add to Basket Button")</button>
-                </form>
+                    <input type="hidden" name="id" value="@Model.Key" />
+                    <input type="hidden" name="currencyCode" value="@iso4217Code" />
+                    <button class="btn btn-primary" type="submit">@Umbraco.GetDictionaryValue("Add to Basket Button")</button>
+                }
                 @if (Model.HasValue("features"))
                 {
                     <ol class="list-group list-group-flush mt-4 rounded-2">
