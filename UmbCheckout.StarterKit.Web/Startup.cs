@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Rewrite;
+
 namespace UmbCheckout.StarterKit.Web
 {
     public class Startup
@@ -47,6 +49,8 @@ namespace UmbCheckout.StarterKit.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseRewriter(new RewriteOptions().AddIISUrlRewrite(env.ContentRootFileProvider, "IISUrlRewrite.xml"));
 
             app.UseUmbraco()
                 .WithMiddleware(u =>

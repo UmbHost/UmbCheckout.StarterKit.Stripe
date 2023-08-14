@@ -1,6 +1,6 @@
 ﻿@using Umbraco.Cms.Core.Models.Blocks
 @using Umbraco.Cms.Core.Models
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<UmbCheckout.StarterKit.Web.ViewModels.ProductsViewModel>
 @{
     Layout = "_Master.cshtml";
 }
@@ -10,21 +10,21 @@
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">
                     @{
-                        if (Model.HasValue("heroHeading"))
+                        if (Model.Content.HasValue("heroHeading"))
                         {
-                            @(Model.Value<string>("heroHeading"))
+                            @(Model.Content.Value<string>("heroHeading"))
                         }
                         else
                         {
-                            @Model.Name
+                            @Model.Content.Name
                         }
                     }
                 </h1>
-                @(Model.Value("heroIntroduction"))
-                @if (Model.HasValue("heroButtons"))
+                @(Model.Content.Value("heroIntroduction"))
+                @if (Model.Content.HasValue("heroButtons"))
                 {
                     <p>
-                        @foreach (var button in Model.Value<IEnumerable<BlockListItem>>("heroButtons")?.Select(x => x.Content))
+                        @foreach (var button in Model.Content.Value<IEnumerable<BlockListItem>>("heroButtons")?.Select(x => x.Content))
                         {
                             <a href="@(button.Value<Link>("link").Url)" target="@(button.Value<Link>("link").Target)" class="btn @button.Value("type") my-2">@(button.Value<Link>("link").Name)</a>
                         }
@@ -36,21 +36,21 @@
 </section>
 <div class="py-5 bg-body-secondary">
     <div class="container">
-        @await Html.GetBlockListHtmlAsync(Model.Value<BlockListModel>("contentBlocks"))
+        @await Html.GetBlockListHtmlAsync(Model.Content.Value<BlockListModel>("contentBlocks"))
     </div>
 </div>
 <div class="py-5 bg-body-tertiary">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
-                <h2 class="fw-light">@Model.Value("heading")</h2>
-                @Model.Value("introduction")
+                <h2 class="fw-light">@Model.Content.Value("heading")</h2>
+                @Model.Content.Value("introduction")
             </div>
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
-            @if (Model.Children() != null && Model.Children().Any())
+            @if (Model.Products != null && Model.Products.Any())
             {
-                foreach (var product in Model.Children())
+                foreach (var product in Model.Products)
                 {
                     <div class="col d-flex">
                         <div class="card shadow-sm">

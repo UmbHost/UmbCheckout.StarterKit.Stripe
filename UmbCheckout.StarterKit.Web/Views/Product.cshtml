@@ -3,6 +3,7 @@
 @using Umbraco.Cms.Core.Strings
 @using UmbCheckout.Stripe.Controllers.Surface
 @using System.Globalization
+@using UmbCheckout.StarterKit.Web.Extensions
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
     Layout = "_Master.cshtml";
@@ -67,15 +68,20 @@
             </div>
             <div class="col-5 offset-1">
                 <p class="h3 mb-3">@(Model.Value<decimal>("umbCheckoutPrice").ToString("C"))</p>
-                <p><strong>Categories: </strong> @string.Join(", ", Model.Value<IEnumerable<IPublishedContent>>("categories")?.Select(x => x.Value<string>("categoryName")))</p>
+                <p>
+                    <strong>Categories: </strong> @foreach (var category in Model.Value<IEnumerable<IPublishedContent>>("categories"))
+                    {
+                        <a href="@Html.ToRewrittenUrl(Model.Parent.Url(), "category", category.Value<string>("categoryName"))">@category.Value("categoryName")</a>
+                    }
+                </p>
                 @using (Html.BeginUmbracoForm<StripeBasketController>(nameof(StripeBasketController.Add), FormMethod.Post))
                 {
                     <div class="mb-3">
                         <label for="quantity" class="form-label">@Umbraco.GetDictionaryValue("Quantity Label")</label>
                         <input class="form-control" type="number" name="quantity" value="1" min="1">
                     </div>
-                    <input type="hidden" name="id" value="@Model.Key"/>
-                    <input type="hidden" name="currencyCode" value="@iso4217Code"/>
+                    <input type="hidden" name="id" value="@Model.Key" />
+                    <input type="hidden" name="currencyCode" value="@iso4217Code" />
                     <button class="btn btn-primary" type="submit">@Umbraco.GetDictionaryValue("Add to Basket Button")</button>
                 }
                 @if (Model.HasValue("features"))
