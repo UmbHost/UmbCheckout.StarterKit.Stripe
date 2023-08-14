@@ -1,6 +1,93 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Product>
-@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Strings
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
-	Layout = null;
+    Layout = "_Master.cshtml";
+}
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">
+                @{
+                    if (Model.HasValue("productName"))
+                    {
+                        @(Model.Value<string>("productName"))
+                    }
+                    else
+                    {
+                        @Model.Name
+                    }
+                }
+            </h1>
+            @(Model.Value("description"))
+
+            @await Umbraco.RenderMacroAsync("Breadcrumbs")
+        </div>
+    </div>
+</section>
+<div class="py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div id="productPhotos" class="carousel slide">
+                    <div class="carousel-inner">
+                        @foreach (var image in Model.Value<IEnumerable<MediaWithCrops>>("photos"))
+                        {
+                            <div class="carousel @Html.If(image == Model.Value<IEnumerable<MediaWithCrops>>("photos").FirstOrDefault(), "active")">
+                                <img src="@image.GetCropUrl("carousel")" class="d-block w-100 rounded-2 shadow" alt="@image.Value("alt")">
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#productPhotos" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#productPhotos" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-5 offset-1">
+                <div class="h3">@(Model.Value<decimal>("price").ToString("C"))</div>
+                <form>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input class="form-control" type="number" name="quantity" value="1" min="1">
+                    </div>
+                    <input type="hidden" name="id" value="262beb70-53a6-49b8-9e98-cfde2e85a78e">
+                    <input type="hidden" name="currencyCode" value="GBP">
+                    <button type="submit" class="btn btn-primary">@Umbraco.GetDictionaryValue("Add to Basket Button")</button>
+                </form>
+                @if (Model.HasValue("features"))
+                {
+                    <ol class="list-group list-group-flush mt-4 rounded-2">
+                        @foreach (var feature in Model.Value<IEnumerable<BlockListItem>>("features"))
+                        {
+                            var content = feature.Content;
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">@content.Value("featureName")</div>
+                                    @content.Value("details")
+                                </div>
+                            </li>
+                        }
+                    </ol>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.HasValue("detailedDescription"))
+{
+    <div class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    @(Model.Value<IHtmlEncodedString>("detailedDescription"))
+                </div>
+            </div>
+        </div>
+    </div>
 }
