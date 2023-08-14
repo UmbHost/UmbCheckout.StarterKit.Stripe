@@ -1,0 +1,69 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = "_Master.cshtml";
+}
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">
+                @{
+                    if (Model.HasValue("heroHeading"))
+                    {
+                        @(Model.Value<string>("heroHeading"))
+                    }
+                    else
+                    {
+                        @Model.Name
+                    }
+                }
+            </h1>
+            @(Model.Value("heroIntroduction"))
+            @if (Model.HasValue("heroButtons"))
+            {
+                <p>
+                    @foreach (var button in Model.Value<IEnumerable<BlockListItem>>("heroButtons")?.Select(x => x.Content))
+                    {
+                        <a href="@(button.Value<Link>("link").Url)" target="@(button.Value<Link>("link").Target)" class="btn @button.Value("type") my-2">@(button.Value<Link>("link").Name)</a>
+                    }
+                </p>
+            }
+        </div>
+    </div>
+</section>
+<div class="py-5 bg-body-secondary">
+    <div class="container">
+        @await Html.GetBlockListHtmlAsync(Model.Value<BlockListModel>("contentBlocks"))
+    </div>
+</div>
+<div class="py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h2 class="fw-light">@Model.Value("heading")</h2>
+                @Model.Value("introduction")
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
+            @if (Model.Children() != null && Model.Children().Any())
+            {
+                foreach (var product in Model.Children())
+                {
+                    <div class="col d-flex">
+                        <div class="card shadow-sm">
+                            <img class="card-img-top" src="@(product.Value<IEnumerable<MediaWithCrops>>("photos").FirstOrDefault().GetCropUrl("thumbnail"))" role="img" preserveAspectRatio="xMidYMid slice" focusable="false" />
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">@product.Value("productName")</h5>
+                                <p class="card-text flex-grow-1">@(product.Value<string>("description")?.Truncate(265))</p>
+                                <div class="d-grid">
+                                    <a href="@product.Url()" class="btn btn-primary stretched-link">@Umbraco.GetDictionaryValue("View Product Button")</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
