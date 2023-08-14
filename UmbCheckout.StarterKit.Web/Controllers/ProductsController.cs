@@ -22,11 +22,11 @@ namespace UmbCheckout.StarterKit.Web.Controllers
                 products = CurrentPage.Children()
                     .Where(x => x.Value<IEnumerable<IPublishedContent>>("categories").Select(x => x.Name)
                     .Contains(category, StringComparer.CurrentCultureIgnoreCase))
-                    .Take(9);
+                    .Take(CurrentPage.Value<int>("maximum"));
             }
             else
             {
-                products = CurrentPage.Children().Take(9);
+                products = CurrentPage.Children().Take(CurrentPage.Value<int>("maximum"));
             }
 
             var model = new ProductsViewModel(CurrentPage)
