@@ -28,7 +28,7 @@ namespace UmbCheckout.StarterKit.Web.Controllers
                 Keywords = keywords,
                 Category = category,
                 CurrentPage = page,
-                PageSize = CurrentPage.Value<int>("maximum")
+                PageSize = CurrentPage.Value<int>("maximumPerPage")
             };
 
             var searchResults = _productSearchService.SearchProducts(searchCriteria);
