@@ -35,7 +35,9 @@
 </section>
 <div class="py-5 bg-body-tertiary">
     <div class="container">
-        @if (TempData["UmbCheckout_Added_To_Basket"] != null)
+        <div class="row">
+            <div class="col-8">
+                        @if (TempData["UmbCheckout_Added_To_Basket"] != null)
         {
             <div class="row mb-4">
                 <div class="col-12">
@@ -46,10 +48,10 @@
             </div>
         }
         <div class="row" itemtype="https://schema.org/Product" itemscope>
-            <meta itemprop="sku" content="@Model.Value("sku")" />
-            <meta itemprop="name" content="@Model.Value("productName")" />
-            <meta itemprop="price" content="@(Model.Value<decimal>("umbCheckoutPrice"))" />
-            <meta itemprop="priceCurrency" content="@iso4217Code" />
+            <meta itemprop="sku" content="@Model.Value("sku")"/>
+            <meta itemprop="name" content="@Model.Value("productName")"/>
+            <meta itemprop="price" content="@(Model.Value<decimal>("umbCheckoutPrice"))"/>
+            <meta itemprop="priceCurrency" content="@iso4217Code"/>
             <div class="col-6">
                 <div id="productPhotos" class="carousel slide">
                     <div class="carousel-inner">
@@ -104,6 +106,8 @@
                         }
                     </ol>
                 }
+            </div>
+        </div>
             </div>
         </div>
     </div>

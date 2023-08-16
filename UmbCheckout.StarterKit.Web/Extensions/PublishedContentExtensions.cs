@@ -8,5 +8,8 @@ namespace UmbCheckout.StarterKit.Web.Extensions
 
         public static IPublishedContent? GetSiteSettings(this IPublishedContent content) =>
             GetHomePage(content)?.FirstChildOfType("siteSettings");
+
+        public static IPublishedContent? GetProductsPage(this IPublishedContent content) =>
+            GetHomePage(content)?.FirstChildOfType("products");
     }
 }

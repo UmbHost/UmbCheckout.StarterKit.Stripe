@@ -1,4 +1,5 @@
-﻿using Umbraco.Cms.Core.Models;
+﻿using UmbCheckout.StarterKit.Web.Models.Search;
+using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
 
 namespace UmbCheckout.StarterKit.Web.ViewModels
@@ -9,6 +10,7 @@ namespace UmbCheckout.StarterKit.Web.ViewModels
         {
         }
 
-        public IEnumerable<IPublishedContent>? Products { get; set; }
+        public IEnumerable<string?> Categories { get; set; } = Enumerable.Empty<string?>();
+        public ProductSearchResponse? SearchResponse { get; set; }
     }
 }
