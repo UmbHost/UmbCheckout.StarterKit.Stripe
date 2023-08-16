@@ -15,7 +15,7 @@
 }
 <section class="py-5 text-center" style="@backgroundImage @backgroundColour">
     <div class="container">
-        <div class="row py-lg-5">
+        <div class="row px-5 px-md-0 py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto bg-white bg-opacity-75 rounded-2 p-3">
                 <h1 class="fw-light">
                     @{
@@ -55,7 +55,7 @@
             <meta itemprop="name" content="@Model.Value("productName")"/>
             <meta itemprop="price" content="@(Model.Value<decimal>("umbCheckoutPrice"))"/>
             <meta itemprop="priceCurrency" content="@CultureInfo.CurrentUICulture.GetISOCurrencySymbol()"/>
-            <div class="col-6">
+            <div class="col-md-6">
                 <div id="productPhotos" class="carousel slide">
                     <div class="carousel-inner">
                         @foreach (var image in Model.Value<IEnumerable<MediaWithCrops>>("photos"))
@@ -75,7 +75,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-5 offset-1">
+            <div class="col-md-5 offset-md-1 mt-4">
                 <p class="h3 mb-3">@(Model.Value<decimal>("umbCheckoutPrice").ToString("C"))</p>
                 <p>
                     <strong>Categories: </strong>
