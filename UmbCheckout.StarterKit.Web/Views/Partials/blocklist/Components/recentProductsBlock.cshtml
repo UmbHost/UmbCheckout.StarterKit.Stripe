@@ -11,6 +11,10 @@
     {
         backgroundColour = $"bg-{settings.Value<ColorPickerValueConverter.PickedColor>("backgroundColour")?.Label.ToLower().Replace(" ", "-")}";
     }
+
+    IEnumerable<IPublishedContent> recentProducts = content.HasValue("productCategory") 
+        ? content.Value<IPublishedContent>("recentProducts").Children().Where(x => x.Value<IEnumerable<IPublishedContent>>("categories").Contains(content.Value<IPublishedContent>("productCategory")))
+        : content.Value<IPublishedContent>("recentProducts").Children();
 }
 <div class="py-5 @backgroundColour">
     <div class="container">
@@ -23,7 +27,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
             @if (content.Value("recentProducts") != null)
             {
-                foreach (var product in content.Value<IPublishedContent>("recentProducts").Children())
+                foreach (var product in recentProducts)
                 {
                     <div class="col d-flex">
                         <div class="card shadow-sm">
