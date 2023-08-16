@@ -10,6 +10,7 @@ namespace UmbCheckout.StarterKit.Web.Composers
         public void Compose(IUmbracoBuilder builder)
         {
             builder.Services.AddExamineLuceneIndex<ProductsIndex, ConfigurationEnabledDirectoryFactory>("ProductsIndex");
+            builder.Services.AddExamineLuceneIndex<BlogIndex, ConfigurationEnabledDirectoryFactory>("BlogIndex");
         }
     }
 }

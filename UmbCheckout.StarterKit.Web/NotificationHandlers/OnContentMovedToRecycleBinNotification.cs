@@ -22,6 +22,11 @@ namespace UmbCheckout.StarterKit.Web.NotificationHandlers
             {
                 _appCaches.RuntimeCache.ClearByKey("ProductCategories");
             }
+
+            if (notification.DeletedEntities.Any(x => x.ContentType.Alias == "blogCategory"))
+            {
+                _appCaches.RuntimeCache.ClearByKey("BlogCategories");
+            }
         }
     }
 }

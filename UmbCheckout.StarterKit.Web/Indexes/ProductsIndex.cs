@@ -7,12 +7,12 @@ using IHostingEnvironment = Umbraco.Cms.Core.Hosting.IHostingEnvironment;
 
 namespace UmbCheckout.StarterKit.Web.Indexes
 {
-    public class ProductsIndex : UmbracoExamineIndex, IUmbracoContentIndex
+    public class BlogIndex : UmbracoExamineIndex, IUmbracoContentIndex
     {
         private readonly string[] _contentTypes = {
-            "product"
+            "blogPost"
         };
-        public ProductsIndex(
+        public BlogIndex(
             ILoggerFactory loggerFactory,
             string name,
             IOptionsMonitor<LuceneDirectoryIndexOptions> indexOptions,
@@ -20,7 +20,7 @@ namespace UmbCheckout.StarterKit.Web.Indexes
             IRuntimeState runtimeState)
             : base(loggerFactory, name, indexOptions, hostingEnvironment, runtimeState)
         {
-            loggerFactory.CreateLogger<ProductsIndex>();
+            loggerFactory.CreateLogger<BlogIndex>();
 
             LuceneDirectoryIndexOptions namedOptions = indexOptions.Get(name);
             if (namedOptions == null)

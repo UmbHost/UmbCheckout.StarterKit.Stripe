@@ -9,6 +9,7 @@ namespace UmbCheckout.StarterKit.Web.Composers
         public void Compose(IUmbracoBuilder builder)
         {
             builder.Services.AddTransient<IProductSearchService, ProductSearchService>();
+            builder.Services.AddTransient<IBlogSearchService, BlogSearchService>();
         }
     }
 }

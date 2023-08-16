@@ -64,13 +64,13 @@ namespace UmbCheckout.StarterKit.Web.Services.Search
                 int indexOfPropertyValue = stringToParse.IndexOf("LuceneQuery:") + 12;
                 string rawQuery = stringToParse.Substring(indexOfPropertyValue).TrimEnd('}');
                 var response = index.Searcher.CreateQuery("content").NativeQuery(rawQuery).Execute(QueryOptions.SkipTake((criteria.CurrentPage - 1) * criteria.PageSize, criteria.PageSize));
-                var products = new List<IPublishedContent>();
+                var blogPosts = new List<IPublishedContent>();
 
                 foreach (var id in response.Select(x => x.Id))
                 {
-                    products.Add(_umbracoHelper.Content(id));
+                    blogPosts.Add(_umbracoHelper.Content(id));
                 }
-                results.Products = products;
+                results.Items = blogPosts;
                 results.TotalResults = response.TotalItemCount;
             }
 

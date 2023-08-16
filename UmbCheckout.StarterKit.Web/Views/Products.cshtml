@@ -5,36 +5,7 @@
 @{
     Layout = "_Master.cshtml";
 }
-<section class="py-5 text-center">
-    <div class="container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">
-                    @{
-                        if (Model.Content.HasValue("heroHeading"))
-                        {
-                            @(Model.Content.Value<string>("heroHeading"))
-                        }
-                        else
-                        {
-                            @Model.Content.Name
-                        }
-                    }
-                </h1>
-                @(Model.Content.Value("heroIntroduction"))
-                @if (Model.Content.HasValue("heroButtons"))
-                {
-                    <p>
-                        @foreach (var button in Model.Content.Value<IEnumerable<BlockListItem>>("heroButtons")?.Select(x => x.Content))
-                        {
-                            <a href="@(button.Value<Link>("link").Url)" target="@(button.Value<Link>("link").Target)" class="btn @button.Value("type") my-2">@(button.Value<Link>("link").Name)</a>
-                        }
-                    </p>
-                }
-            </div>
-        </div>
-    </div>
-</section>
+<partial name="Partials/Hero" model="Model.Content" />
 @await Html.GetBlockListHtmlAsync(Model.Content.Value<BlockListModel>("contentBlocks"))
 <div class="py-5 bg-body-tertiary" id="results">
     <div class="container">
@@ -53,10 +24,10 @@
                         </button>
                     </div>
                 </div>
-                @if (Model.SearchResponse is { SearchResults: not null } && Model.SearchResponse.SearchResults.Products.Any())
+                @if (Model.SearchResponse is { SearchResults: not null } && Model.SearchResponse.SearchResults.Items.Any())
                 {
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
-                        @foreach (var product in Model.SearchResponse.SearchResults.Products)
+                        @foreach (var product in Model.SearchResponse.SearchResults.Items)
                         {
                             <div class="col d-flex">
                                 <div class="card shadow-sm">
@@ -77,7 +48,7 @@
                             <paging page-no="Model.SearchResponse.Criteria.CurrentPage"
                                     query-string-key-page-no="page"
                                     query-string-key-page-size="size"
-                                    url-template="?page={0}&size={1}&keywords=@(Model.SearchResults.Criteria.Keywords)#results"
+                                    url-template="?page={0}&size={1}&keywords=@(Model.SearchResponse?.Criteria.Keywords)#results"
                                     page-size="Model.SearchResponse.Criteria.PageSize"
                                     total-records="(int)Model.SearchResponse.SearchResults.TotalResults"
                                     render-mode="Bootstrap5"
@@ -111,16 +82,16 @@
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <label class="form-label" for="l-keywords">Keywords</label>
-                                    @if (!string.IsNullOrEmpty(Model.SearchResults.Criteria.Keywords) || !string.IsNullOrEmpty(Model.SearchResults.Criteria.Category))
+                                    @if (!string.IsNullOrEmpty(Model.SearchResponse.Criteria.Keywords) || !string.IsNullOrEmpty(Model.SearchResponse.Criteria.Category))
                                     {
                                         <a class="clear-filter" href="@Model.Content.Url()#results">@Umbraco.GetDictionaryValue("Clear Filters Button")</a>
                                     }
                                 </div>
-                                <input class="form-control" id="l-keywords" type="search" name="keywords" value="@Model.SearchResults?.Criteria.Keywords" placeholder="@Umbraco.GetDictionaryValue("Search Products Placeholder")" autocomplete="off">
+                                <input class="form-control" id="l-keywords" type="search" name="keywords" value="@Model.SearchResponse?.Criteria.Keywords" placeholder="@Umbraco.GetDictionaryValue("Search Products Placeholder")" autocomplete="off">
                             </div>
 
                             @{
-                                await RenderDropDownGroupSingle("category", "Category Filter Label", Model.Categories, Model.SearchResults?.Criteria.Category, true);
+                                await RenderDropDownGroupSingle("category", "Category Filter Label", Model.Categories, Model.SearchResponse?.Criteria.Category, true);
                             }
 
                             <div class="d-grid">

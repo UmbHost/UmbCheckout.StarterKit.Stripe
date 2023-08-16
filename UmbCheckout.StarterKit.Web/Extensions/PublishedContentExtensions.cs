@@ -11,5 +11,8 @@ namespace UmbCheckout.StarterKit.Web.Extensions
 
         public static IPublishedContent? GetProductsPage(this IPublishedContent content) =>
             GetHomePage(content)?.FirstChildOfType("products");
+
+        public static IPublishedContent? GetBlogPage(this IPublishedContent content) =>
+            GetHomePage(content)?.FirstChildOfType("blog");
     }
 }

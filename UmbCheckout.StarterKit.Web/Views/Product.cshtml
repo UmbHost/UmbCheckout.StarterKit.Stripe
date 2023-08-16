@@ -3,40 +3,43 @@
 @using Umbraco.Cms.Core.Strings
 @using UmbCheckout.Stripe.Controllers.Surface
 @using System.Globalization
+@using UmbCheckout.Shared.Extensions
 @using UmbCheckout.StarterKit.Web.Extensions
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
     Layout = "_Master.cshtml";
-
-    RegionInfo regionInfo = new RegionInfo(CultureInfo.CurrentUICulture.LCID);
-    string iso4217Code = regionInfo.ISOCurrencySymbol;
+    var backgroundImage = Model.HasValue("backgroundImage") ? $"background-image:url({Model.Value<MediaWithCrops>("image").GetCropUrl("hero")}); background-repeat: no-repeat; background-size: cover;" : string.Empty;
+    var backgroundColour = Model.HasValue("backgroundColour") ? $"background-color:#{Model.Value<ColorPickerValueConverter.PickedColor>("backgroundColour")};" : string.Empty;
 
 }
-<section class="py-5 text-center container">
-    <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">
-                @{
-                    if (Model.HasValue("productName"))
-                    {
-                        @(Model.Value<string>("productName"))
+<section class="py-5 text-center" style="@backgroundImage @backgroundColour">
+    <div class="container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto bg-white bg-opacity-75 rounded-2 p-3">
+                <h1 class="fw-light">
+                    @{
+                        if (Model.HasValue("productName"))
+                        {
+                            @(Model.Value<string>("productName"))
+                        }
+                        else
+                        {
+                            @Model.Name
+                        }
                     }
-                    else
-                    {
-                        @Model.Name
-                    }
-                }
-            </h1>
-            @(Model.Value("description"))
+                </h1>
+                @(Model.Value("description"))
 
-            @await Umbraco.RenderMacroAsync("Breadcrumbs")
+                @await Umbraco.RenderMacroAsync("Breadcrumbs")
+            </div>
         </div>
     </div>
 </section>
 <div class="py-5 bg-body-tertiary">
     <div class="container">
         <div class="row">
-            <div class="col-8">
+            <div class="col">
                         @if (TempData["UmbCheckout_Added_To_Basket"] != null)
         {
             <div class="row mb-4">
@@ -51,7 +54,7 @@
             <meta itemprop="sku" content="@Model.Value("sku")"/>
             <meta itemprop="name" content="@Model.Value("productName")"/>
             <meta itemprop="price" content="@(Model.Value<decimal>("umbCheckoutPrice"))"/>
-            <meta itemprop="priceCurrency" content="@iso4217Code"/>
+            <meta itemprop="priceCurrency" content="@CultureInfo.CurrentUICulture.GetISOCurrencySymbol()"/>
             <div class="col-6">
                 <div id="productPhotos" class="carousel slide">
                     <div class="carousel-inner">
@@ -88,7 +91,7 @@
                         <input class="form-control" type="number" name="quantity" value="1" min="1">
                     </div>
                     <input type="hidden" name="id" value="@Model.Key"/>
-                    <input type="hidden" name="currencyCode" value="@iso4217Code"/>
+                    <input type="hidden" name="currencyCode" value="@CultureInfo.CurrentUICulture.GetISOCurrencySymbol()"/>
                     <button class="btn btn-primary" type="submit">@Umbraco.GetDictionaryValue("Add to Basket Button")</button>
                 }
                 @if (Model.HasValue("features"))

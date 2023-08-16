@@ -3,27 +3,7 @@
 @{
 	Layout = "_Master.cshtml";
 }
-<section class="py-5 text-center">
-    <div class="container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">
-                    @{
-                        if (Model.HasValue("heroHeading"))
-                        {
-                            @(Model.Value<string>("heroHeading"))
-                        }
-                        else
-                        {
-                            @Model.Name
-                        }
-                    }
-                </h1>
-                @(Model.Value("heroIntroduction"))
-            </div>
-        </div>
-    </div>
-</section>
+<partial name="Partials/Hero"/>
 <div class="py-5 bg-body-tertiary">
     <div class="container">
         <div class="row justify-content-center">

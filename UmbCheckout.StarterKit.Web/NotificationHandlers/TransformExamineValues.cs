@@ -21,12 +21,12 @@ namespace UmbCheckout.StarterKit.Web.NotificationHandlers
 
         public void Handle(UmbracoApplicationStartingNotification notification)
         {
-            if (_examineManager.TryGetIndex("ProductsIndex", out var index))
+            if (_examineManager.TryGetIndex("ProductsIndex", out var index) || _examineManager.TryGetIndex("BlogIndex", out index))
             {
                 ((BaseIndexProvider)index).TransformingIndexValues += (object sender, IndexingItemEventArgs e) =>
                 {
                     var values = e.ValueSet.Values.ToDictionary(x => x.Key, x => (IEnumerable<object>)x.Value);
-                    if (e.ValueSet.ItemType.InvariantEquals("product"))
+                    if (e.ValueSet.ItemType.InvariantEquals("product") || e.ValueSet.ItemType.InvariantEquals("blogPost"))
                     {
                         try
                         {
