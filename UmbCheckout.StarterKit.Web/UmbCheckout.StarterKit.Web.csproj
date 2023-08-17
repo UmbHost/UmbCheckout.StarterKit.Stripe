@@ -19,6 +19,7 @@
     <PackageReference Include="MetaMomentum" Version="2.2.0" />
     <PackageReference Include="NestingContently.Umbraco" Version="4.0.0" />
     <PackageReference Include="Our.Umbraco.Community.Contentment" Version="4.4.4" />
+    <PackageReference Include="Our.Umbraco.ConditionalDisplayers" Version="3.4.0" />
     <PackageReference Include="Our.Umbraco.TagHelpers" Version="1.2.0" />
     <PackageReference Include="Our.Umbraco.TheDashboard" Version="10.0.1" />
     <PackageReference Include="Our.Umbraco.UmbNav.Web" Version="2.0.8" />
