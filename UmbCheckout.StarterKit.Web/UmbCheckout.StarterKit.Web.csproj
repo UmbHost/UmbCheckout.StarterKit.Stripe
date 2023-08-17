@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bergmania.OpenStreetMap" Version="5.3.1" />
     <PackageReference Include="LazZiya.TagHelpers" Version="6.0.2" />
     <PackageReference Include="MetaMomentum" Version="2.2.0" />
     <PackageReference Include="NestingContently.Umbraco" Version="4.0.0" />
