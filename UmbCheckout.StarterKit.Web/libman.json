@@ -20,6 +20,14 @@
         "font/bootstrap-icons.json",
         "font/bootstrap-icons.min.css"
       ]
+    },
+    {
+      "library": "glightbox@3.2.0",
+      "destination": "wwwroot/lib/glightbox/",
+      "files": [
+        "js/glightbox.min.js",
+        "css/glightbox.min.css"
+      ]
     }
   ]
 }

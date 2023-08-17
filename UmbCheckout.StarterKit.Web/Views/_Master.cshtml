@@ -15,6 +15,7 @@
 
     <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+    @await SmidgeHelper.CssHereAsync()
     @await RenderSectionAsync("HeadEnd", false)
 </head>
 <body>
@@ -39,6 +40,7 @@
             </div>
         </div>
     </footer>
+    @await SmidgeHelper.JsHereAsync()
     <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("BodyEnd", false)
 </body>
