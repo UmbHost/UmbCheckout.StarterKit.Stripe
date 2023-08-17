@@ -40,90 +40,81 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                        @if (TempData["UmbCheckout_Added_To_Basket"] != null)
-        {
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="alert alert-success">
-                        Successfully added @UmbracoContext.Content.GetById((Guid)TempData["UmbCheckout_Added_To_Basket"]).Name to basket.
-                    </div>
-                </div>
-            </div>
-        }
-        <div class="row" itemtype="https://schema.org/Product" itemscope>
-            <meta itemprop="sku" content="@Model.Value("sku")"/>
-            <meta itemprop="name" content="@Model.Value("productName")"/>
-            <meta itemprop="price" content="@(Model.Value<decimal>("umbCheckoutPrice"))"/>
-            <meta itemprop="priceCurrency" content="@CultureInfo.CurrentUICulture.GetISOCurrencySymbol()"/>
-            <div class="col-md-6">
-                <div id="productPhotos" class="carousel slide">
-                    <div class="carousel-inner">
-                        @foreach (var image in Model.Value<IEnumerable<MediaWithCrops>>("photos"))
-                        {
-                            <div class="carousel @Html.If(image == Model.Value<IEnumerable<MediaWithCrops>>("photos").FirstOrDefault(), "active")">
-                                <img itemprop="image" src="@image.GetCropUrl("carousel", UrlMode.Absolute)" class="d-block w-100 rounded-2 shadow" alt="@image.Value("alt")">
+                @if (TempData["UmbCheckout_Added_To_Basket"] != null)
+                {
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="alert alert-success">
+                                Successfully added @UmbracoContext.Content.GetById((Guid)TempData["UmbCheckout_Added_To_Basket"]).Name to basket.
                             </div>
-                        }
+                        </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#productPhotos" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#productPhotos" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-            <div class="col-md-5 offset-md-1 mt-4">
-                <p class="h3 mb-3">@(Model.Value<decimal>("umbCheckoutPrice").ToString("C"))</p>
-                <p>
-                    <strong>Categories: </strong>
-                    @foreach (var category in Model.Value<IEnumerable<IPublishedContent>>("categories"))
-                    {
-                        <a href="@Html.ToRewrittenUrl(Model.Parent.Url(), "category", category.Value<string>("categoryName"))">@category.Value("categoryName")</a>
-                    }
-                </p>
-                @using (Html.BeginUmbracoForm<StripeBasketController>(nameof(StripeBasketController.Add), FormMethod.Post))
-                {
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">@Umbraco.GetDictionaryValue("Quantity Label")</label>
-                        <input class="form-control" type="number" name="quantity" value="1" min="1">
-                    </div>
-                    <input type="hidden" name="id" value="@Model.Key"/>
-                    <input type="hidden" name="currencyCode" value="@CultureInfo.CurrentUICulture.GetISOCurrencySymbol()"/>
-                    <button class="btn btn-primary" type="submit">@Umbraco.GetDictionaryValue("Add to Basket Button")</button>
                 }
-                @if (Model.HasValue("features"))
-                {
-                    <ol class="list-group list-group-flush mt-4 rounded-2">
-                        @foreach (var feature in Model.Value<IEnumerable<BlockListItem>>("features"))
+                <div class="row" itemtype="https://schema.org/Product" itemscope>
+                    <meta itemprop="sku" content="@Model.Value("sku")" />
+                    <meta itemprop="name" content="@Model.Value("productName")" />
+                    <meta itemprop="price" content="@(Model.Value<decimal>("umbCheckoutPrice"))" />
+                    <meta itemprop="priceCurrency" content="@CultureInfo.CurrentUICulture.GetISOCurrencySymbol()" />
+                    <div class="col-md-6">
+                        <div id="productPhotos" class="carousel slide">
+                            <div class="carousel-inner">
+                                @foreach (var image in Model.Value<IEnumerable<MediaWithCrops>>("photos"))
+                                {
+                                    <div class="carousel @Html.If(image == Model.Value<IEnumerable<MediaWithCrops>>("photos").FirstOrDefault(), "active")">
+                                        <img itemprop="image" src="@image.GetCropUrl("carousel", UrlMode.Absolute)" class="d-block w-100 rounded-2 shadow" alt="@image.Value("alt")">
+                                    </div>
+                                }
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#productPhotos" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#productPhotos" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-5 offset-md-1 mt-4">
+                        <p class="h3 mb-3">@(Model.Value<decimal>("umbCheckoutPrice").ToString("C"))</p>
+                        <p>
+                            <strong>Categories: </strong>
+                            @foreach (var category in Model.Value<IEnumerable<IPublishedContent>>("categories"))
+                            {
+                                <a href="@Html.ToRewrittenUrl(Model.Parent.Url(), "category", category.Value<string>("categoryName"))">@category.Value("categoryName")</a>
+                            }
+                        </p>
+                        <form our-controller="StripeBasket" our-action="@nameof(StripeBasketController.Add)">
+                            <div class="mb-3">
+                                <label for="quantity" class="form-label">@Umbraco.GetDictionaryValue("Quantity Label")</label>
+                                <input class="form-control" type="number" name="quantity" value="1" min="1">
+                            </div>
+                            <input type="hidden" name="id" value="@Model.Key" />
+                            <input type="hidden" name="currencyCode" value="@CultureInfo.CurrentUICulture.GetISOCurrencySymbol()" />
+                            <button class="btn btn-primary" type="submit">@Umbraco.GetDictionaryValue("Add to Basket Button")</button>
+                        </form>
+                        @if (Model.HasValue("features"))
                         {
-                            var content = feature.Content;
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">@content.Value("featureName")</div>
-                                    @content.Value("details")
-                                </div>
-                            </li>
+                            <ol class="list-group list-group-flush mt-4 rounded-2">
+                                @foreach (var feature in Model.Value<IEnumerable<BlockListItem>>("features"))
+                                {
+                                    var content = feature.Content;
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">@content.Value("featureName")</div>
+                                            @content.Value("details")
+                                        </div>
+                                    </li>
+                                }
+                            </ol>
                         }
-                    </ol>
-                }
-            </div>
-        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @if (Model.HasValue("detailedDescription"))
 {
-    <div class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-10">
-                    @(Model.Value<IHtmlEncodedString>("detailedDescription"))
-                </div>
-            </div>
-        </div>
-    </div>
+    @await Html.GetBlockListHtmlAsync(Model.Value<BlockListModel>("detailedDescription"))
 }
