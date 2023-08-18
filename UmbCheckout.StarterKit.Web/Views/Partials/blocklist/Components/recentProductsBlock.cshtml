@@ -17,12 +17,7 @@
 }
 <div class="py-5 @backgroundColour">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 text-center">
-                <h2 class="fw-light">@content.Value("heading")</h2>
-                @content.Value("introduction")
-            </div>
-        </div>
+        <partial name="~/Views/Partials/blocklist/Components/blockHeading.cshtml" model="Model" />
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
             @if (content.Value("recentProducts") != null)
             {
