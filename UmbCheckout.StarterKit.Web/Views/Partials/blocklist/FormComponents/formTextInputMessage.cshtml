@@ -5,8 +5,7 @@
     var label = content.Value<string>("label");
     var placeholder = content.Value<string>("placeholder");
     var defaultValue = content.Value<string>("defaultValue");
-    var required = content.Value<bool>("required");
-    var rows = content.Value<int>("rows");
+    var fieldType = content.Value<string>("type");
     var autoComplete = content.Value<bool>("autocomplete");
     var maximumLength = content.Value<int>("maximumLength");
     var validation = content.Value<string>("validationType");
@@ -15,16 +14,13 @@
 }
 <div class="mb-3">
     <label for="@fieldName" class="form-label">@label</label>
-    <textarea class="form-control"
-              name="@fieldName"
-              id="f@(fieldName)"
-              data-umb="@fieldName"
-              rows="@rows"
-          @{if (!string.IsNullOrEmpty(placeholder)) { <text> placeholder="@placeholder" </text> } }
-          @{if (autoComplete) { <text> autocomplete="on" </text> } }
-          @{if (maximumLength > 0) { <text> maxlength="@maximumLength" </text> } }
-          @{if (required) { <text> required </text> }}
-          @{if (!string.IsNullOrEmpty(validationRegex)) { <text> pattern="@Html.Raw(validationRegex)" </text> }}>@defaultValue</textarea>
+    <input type="@fieldType" class="form-control" id="f@(fieldName)" name="@fieldName" value="@defaultValue"
+           @{if (!string.IsNullOrEmpty(placeholder)) { <text> placeholder="@placeholder" </text>  }}
+           @{if (maximumLength > 0) { <text> maxlength="@maximumLength" </text> } }
+           @{if (autoComplete) { <text> autocomplete="on" </text>  }}
+           required
+           @{if (!string.IsNullOrEmpty(validationRegex)) { <text> pattern="@Html.Raw(validationRegex)" </text>  }}
+    />
     <div class="invalid-feedback">
         @validationErrorMessage
     </div>

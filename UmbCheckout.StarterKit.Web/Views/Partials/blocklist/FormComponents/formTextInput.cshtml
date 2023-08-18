@@ -19,7 +19,6 @@
            @{if (!string.IsNullOrEmpty(placeholder)) { <text> placeholder="@placeholder" </text>  }}
            @{if (maximumLength > 0) { <text> maxlength="@maximumLength" </text> } }
            @{if (autoComplete) { <text> autocomplete="on" </text>  }}
-           @{if (required || !string.IsNullOrEmpty(validationRegex)) { <text> data-val="true" </text>  }}
            @{if (required) { <text> required </text>  }}
            @{if (!string.IsNullOrEmpty(validationRegex)) { <text> pattern="@Html.Raw(validationRegex)" </text>  }}
     />

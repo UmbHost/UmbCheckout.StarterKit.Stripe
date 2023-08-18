@@ -27,6 +27,7 @@
         <form our-controller="Form" our-action="@nameof(FormController.SubmitForm)" class="needs-validation" method="post" novalidate>
             <div class="row justify-content-center g-3 mt-3">
                 @await Html.GetBlockListHtmlAsync(content.Value<BlockListModel>("formFields"), "form")
+                @await Html.GetBlockListHtmlAsync(content.Value<BlockListModel>("message"), "form")
             </div>
             <div class="row">
                 <div class="col-12">

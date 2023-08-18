@@ -5,7 +5,6 @@
     var label = content.Value<string>("label");
     var placeholder = content.Value<string>("placeholder");
     var defaultValue = content.Value<string>("defaultValue");
-    var required = content.Value<bool>("required");
     var rows = content.Value<int>("rows");
     var autoComplete = content.Value<bool>("autocomplete");
     var maximumLength = content.Value<int>("maximumLength");
@@ -23,7 +22,7 @@
           @{if (!string.IsNullOrEmpty(placeholder)) { <text> placeholder="@placeholder" </text> } }
           @{if (autoComplete) { <text> autocomplete="on" </text> } }
           @{if (maximumLength > 0) { <text> maxlength="@maximumLength" </text> } }
-          @{if (required) { <text> required </text> }}
+          required
           @{if (!string.IsNullOrEmpty(validationRegex)) { <text> pattern="@Html.Raw(validationRegex)" </text> }}>@defaultValue</textarea>
     <div class="invalid-feedback">
         @validationErrorMessage
