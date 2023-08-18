@@ -42,6 +42,35 @@ namespace UmbCheckout.StarterKit.Web.Controllers
                 ModelState.AddModelError(string.Empty, "The form id is invalid");
             }
 
+            if (formCollection.ContainsKey("031660d1657942ba8675daf94f016b6e"))
+            {
+                var honeyPotField = formCollection["031660d1657942ba8675daf94f016b6e"];
+                if (!string.IsNullOrEmpty(honeyPotField))
+                {
+                    ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+            }
+
+            if (formCollection.ContainsKey("085e5604d16a4719ba3a4415beb1bcea"))
+            {
+                var checkField = formCollection["085e5604d16a4719ba3a4415beb1bcea"];
+                var dateViewed = new DateTime(Convert.ToInt64(checkField));
+                var difference = DateTime.Now - dateViewed;
+
+                if (checkField == 0 || difference.TotalSeconds < 10)
+                {
+                    ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+            }
+
             var contentBlocks = CurrentPage.Value<BlockListModel>("contentBlocks");
             if (contentBlocks != null)
             {
