@@ -19,6 +19,12 @@
 <div class="py-5 @backgroundColour">
     <div class="container">
         <partial name="~/Views/Partials/blocklist/Components/blockHeading.cshtml" model="Model" />
+        @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+        {
+            <div class="alert alert-danger mt-3" role="alert">
+                @Html.ValidationSummary()
+            </div>
+        } 
         <form our-controller="Form" our-action="@nameof(FormController.SubmitForm)" class="needs-validation" method="post" novalidate>
             <div class="row justify-content-center g-3 mt-3">
                 @await Html.GetBlockListHtmlAsync(content.Value<BlockListModel>("formFields"), "form")

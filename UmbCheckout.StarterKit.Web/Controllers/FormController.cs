@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Configuration.Models;
@@ -47,12 +48,18 @@ namespace UmbCheckout.StarterKit.Web.Controllers
                 var honeyPotField = formCollection["031660d1657942ba8675daf94f016b6e"];
                 if (!string.IsNullOrEmpty(honeyPotField))
                 {
-                    ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+                    if (!ModelState.ContainsKey("FormError"))
+                    {
+                        ModelState.AddModelError("FormError", "An error occurred trying to submit the form");
+                    }
                 }
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+                if (!ModelState.ContainsKey("FormError"))
+                {
+                    ModelState.AddModelError("FormError", "An error occurred trying to submit the form");
+                }
             }
 
             if (formCollection.ContainsKey("085e5604d16a4719ba3a4415beb1bcea"))
@@ -63,12 +70,18 @@ namespace UmbCheckout.StarterKit.Web.Controllers
 
                 if (checkField == 0 || difference.TotalSeconds < 10)
                 {
-                    ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+                    if (!ModelState.ContainsKey("FormError"))
+                    {
+                        ModelState.AddModelError("FormError", "An error occurred trying to submit the form");
+                    }
                 }
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+                if (!ModelState.ContainsKey("FormError"))
+                {
+                    ModelState.AddModelError("FormError", "An error occurred trying to submit the form");
+                }
             }
 
             var contentBlocks = CurrentPage.Value<BlockListModel>("contentBlocks");
@@ -113,24 +126,37 @@ namespace UmbCheckout.StarterKit.Web.Controllers
 
                             EmailMessage message = new EmailMessage(fromAddress, form.Content.Value<string>("toEmailAddress"), subject, sb.ToString(), false);
                             await _emailSender.SendAsync(message, emailType: "Form Submission");
-                            TempData["formSubmittedSuccessfully"] = true;
+                            TempData.Remove("FieldValues");
+                            TempData["FormSubmittedSuccessfully"] = true;
 
                             return RedirectToUmbracoPage(form.Content.Value<IPublishedContent>("confirmationPage"));
                         }
                         catch (Exception ex)
                         {
                             _logger.LogError(ex, "Error When Submitting Contact Form");
-                            ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+                            if (!ModelState.ContainsKey("FormError"))
+                            {
+                                ModelState.AddModelError("FormError", "An error occurred trying to submit the form");
+                            }
                         }
                     }
                 }
 
-                ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+                if (!ModelState.ContainsKey("FormError"))
+                {
+                    ModelState.AddModelError("FormError", "An error occurred trying to submit the form");
+                }
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "An error occurred trying to submit the form");
+                if (!ModelState.ContainsKey("FormError"))
+                {
+                    ModelState.AddModelError("FormError", "An error occurred trying to submit the form");
+                }
             }
+
+            var fieldValues = formCollection.ToDictionary<KeyValuePair<string, StringValues>, string, string>(formField => formField.Key, formField => formField.Value);
+            TempData["FieldValues"] = fieldValues;
 
             return CurrentUmbracoPage();
         }
