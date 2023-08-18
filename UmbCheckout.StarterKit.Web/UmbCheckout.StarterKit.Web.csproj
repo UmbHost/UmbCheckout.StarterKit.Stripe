@@ -25,8 +25,8 @@
     <PackageReference Include="Our.Umbraco.UmbNav.Web" Version="2.0.8" />
     <PackageReference Include="ourHtagEditor" Version="2.0.1" />
     <PackageReference Include="Skybrud.Umbraco.Redirects" Version="4.0.13" />
-    <PackageReference Include="UmbCheckout" Version="1.0.0-rc.6" />
-    <PackageReference Include="UmbCheckout.Stripe" Version="1.0.0-rc.6" />
+    <PackageReference Include="UmbCheckout" Version="1.0.0-rc.8" />
+    <PackageReference Include="UmbCheckout.Stripe" Version="1.0.0-rc.8" />
     <PackageReference Include="Umbraco.Cms" Version="10.6.1" />
   </ItemGroup>
 
