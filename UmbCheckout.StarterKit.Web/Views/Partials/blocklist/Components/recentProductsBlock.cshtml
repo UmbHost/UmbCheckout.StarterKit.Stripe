@@ -12,8 +12,8 @@
     }
 
     IEnumerable<IPublishedContent> recentProducts = content.HasValue("productCategory") 
-        ? content.Value<IPublishedContent>("recentProducts").Children().Where(x => x.Value<IEnumerable<IPublishedContent>>("categories").Contains(content.Value<IPublishedContent>("productCategory")))
-        : content.Value<IPublishedContent>("recentProducts").Children();
+        ? content.Value<IPublishedContent>("recentProducts").Children().Where(x => x.Value<IEnumerable<IPublishedContent>>("categories").Contains(content.Value<IPublishedContent>("productCategory"))).Take(content.Value<int>("maximumItems"))
+        : content.Value<IPublishedContent>("recentProducts").Children().Take(content.Value<int>("maximumItems"));
 }
 <div class="py-5 @backgroundColour">
     <div class="container">
