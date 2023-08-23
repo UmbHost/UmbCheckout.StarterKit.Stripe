@@ -27,6 +27,8 @@
     <PackageReference Include="Skybrud.Umbraco.Redirects" Version="4.0.13" />
     <PackageReference Include="UmbCheckout" Version="1.0.0-rc.12" />
     <PackageReference Include="UmbCheckout.Stripe" Version="1.0.0-rc.12" />
+    <PackageReference Include="UmbCheckout.Stripe.uSync" Version="1.0.0-rc.12" />
+    <PackageReference Include="UmbCheckout.uSync" Version="1.0.0-rc.12" />
     <PackageReference Include="Umbraco.Cms" Version="10.6.1" />
   </ItemGroup>
 
