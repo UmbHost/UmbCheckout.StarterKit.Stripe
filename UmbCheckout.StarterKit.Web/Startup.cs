@@ -52,6 +52,8 @@ namespace UmbCheckout.StarterKit.Web
 
             app.UseRewriter(new RewriteOptions().AddIISUrlRewrite(env.ContentRootFileProvider, "IISUrlRewrite.xml"));
 
+            app.UseSession();
+
             app.UseUmbraco()
                 .WithMiddleware(u =>
                 {
