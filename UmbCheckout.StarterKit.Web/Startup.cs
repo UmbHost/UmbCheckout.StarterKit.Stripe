@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Rewrite;
+using UmbCheckout.StarterKit.Web.Extensions;
 
 namespace UmbCheckout.StarterKit.Web
 {
@@ -35,6 +36,7 @@ namespace UmbCheckout.StarterKit.Web
                 .AddBackOffice()
                 .AddWebsite()
                 .AddComposers()
+                .AddSettings()
                 .Build();
         }
 
