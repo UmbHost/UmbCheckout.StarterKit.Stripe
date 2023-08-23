@@ -397,3 +397,4 @@ MigrationBackup/
 
 #include default location for packages
 !**/umbraco/Data/packages
+/UmbCheckout.StarterKit.Web/appsettings.Production.json

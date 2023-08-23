@@ -21,7 +21,7 @@ namespace UmbCheckout.StarterKit.Web.NotificationHandlers
 
         public void Handle(UmbracoApplicationStartingNotification notification)
         {
-            if (_examineManager.TryGetIndex("ProductsIndex", out var index) || _examineManager.TryGetIndex("BlogIndex", out index))
+            if (_examineManager.TryGetIndex(Constants.UmbracoIndexes.ExternalIndexName, out var index))
             {
                 ((BaseIndexProvider)index).TransformingIndexValues += (object sender, IndexingItemEventArgs e) =>
                 {

@@ -33,7 +33,7 @@ namespace UmbCheckout.StarterKit.Web.Services.Search
         private SearchResults? SearchUsingExamine(ProductSearchCriteria criteria)
         {
             var results = new SearchResults();
-            if (_examineManager.TryGetIndex("ProductsIndex", out var index))
+            if (_examineManager.TryGetIndex(Umbraco.Cms.Core.Constants.UmbracoIndexes.ExternalIndexName, out var index))
             {
                 var fieldsToSearch = new[]
                 {
@@ -59,18 +59,19 @@ namespace UmbCheckout.StarterKit.Web.Services.Search
                     query.And().Field("categoryNames", criteria.Category.ToUrlSegment(_shortStringHelper));
                 }
 
+                query.Not().Field("templateID", "0");
 
                 string stringToParse = query.ToString();
                 int indexOfPropertyValue = stringToParse.IndexOf("LuceneQuery:") + 12;
                 string rawQuery = stringToParse.Substring(indexOfPropertyValue).TrimEnd('}');
                 var response = index.Searcher.CreateQuery("content").NativeQuery(rawQuery).Execute(QueryOptions.SkipTake((criteria.CurrentPage - 1) * criteria.PageSize, criteria.PageSize));
-                var blogPosts = new List<IPublishedContent>();
+                var searchResults = new List<IPublishedContent>();
 
                 foreach (var id in response.Select(x => x.Id))
                 {
-                    blogPosts.Add(_umbracoHelper.Content(id));
+                    searchResults.Add(_umbracoHelper.Content(id));
                 }
-                results.Items = blogPosts;
+                results.Items = searchResults;
                 results.TotalResults = response.TotalItemCount;
             }
 
