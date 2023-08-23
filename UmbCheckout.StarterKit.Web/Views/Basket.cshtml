@@ -1,5 +1,7 @@
 ﻿@using Umbraco.Cms.Core.Models.Blocks
 @using Umbraco.Cms.Core.Models
+@using UmbCheckout.Shared.Extensions
+@using UmbCheckout.Stripe.ViewComponents
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
 	Layout = "_Master.cshtml";
@@ -7,12 +9,13 @@
 <partial name="Partials/Hero" />
 <div class="py-5 bg-body-tertiary">
     <div class="container">
-        @if (TempData["UmbCheckout_Added_To_Basket"] != null)
+        @if (TempData[UmbCheckout.Shared.Consts.TempData.UmbCheckoutAddedToBasket] != null)
         {
+            var lineItemContent = Umbraco.Content((Guid)TempData[UmbCheckout.Shared.Consts.TempData.UmbCheckoutAddedToBasket]);
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="alert alert-success">
-                        Successfully added @UmbracoContext.Content.GetById((Guid)TempData["UmbCheckout_Added_To_Basket"]).Name to basket.
+                        Successfully added @(lineItemContent != null && lineItemContent.HasTemplate() ? lineItemContent?.Name : $"{lineItemContent?.Parent?.Name} - {lineItemContent?.Name}") to basket.
                     </div>
                 </div>
             </div>
