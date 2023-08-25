@@ -51,10 +51,18 @@ namespace UmbCheckout.StarterKit.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseRewriter(new RewriteOptions().AddIISUrlRewrite(env.ContentRootFileProvider, "IISUrlRewrite.xml"));
 
             app.UseSession();
+            app.UseXfo(options => options.SameOrigin());
+            app.UseXContentTypeOptions();
+            app.UseXXssProtection(options => options.EnabledWithBlockMode());
+
 
             app.UseUmbraco()
                 .WithMiddleware(u =>
