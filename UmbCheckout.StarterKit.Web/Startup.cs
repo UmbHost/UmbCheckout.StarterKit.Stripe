@@ -62,7 +62,12 @@ namespace UmbCheckout.StarterKit.Web
             app.UseXfo(options => options.SameOrigin());
             app.UseXContentTypeOptions();
             app.UseXXssProtection(options => options.EnabledWithBlockMode());
-
+            app.UseReferrerPolicy(opts => opts.NoReferrerWhenDowngrade());
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.TryAdd("Permissions-Policy", "geolocation=(self), accelerometer=(), camera=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), midi=()");
+                await next();
+            });
 
             app.UseUmbraco()
                 .WithMiddleware(u =>
