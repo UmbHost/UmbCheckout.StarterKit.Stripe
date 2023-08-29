@@ -15,7 +15,7 @@ namespace UmbCheckout.StarterKit.Web.ViewComponents.Blog
             _cache = caches.RuntimeCache;
         }
 
-        public IViewComponentResult Invoke(IPublishedContent content, string heading = "Categories", string orderByAlias = "displayName")
+        public IViewComponentResult Invoke(IPublishedContent content, string heading = "Categories")
         {
             var model = new BlogCategoriesViewModel
             {
@@ -28,9 +28,9 @@ namespace UmbCheckout.StarterKit.Web.ViewComponents.Blog
 
         private IEnumerable<string?> GetBlogCategories(IPublishedContent content)
         {
-            return _cache.GetCacheItem("BlogCategories", () => content.GetHomePage()
-                    .FirstChildOfType("blogCategories")
-                    .Children()
+            return _cache.GetCacheItem("BlogCategories", () => content.GetHomePage()?
+                    .FirstChildOfType("blogCategories")?
+                    .Children()?
                     .Select(x => x.Value<string>("categoryName")),
                 TimeSpan.FromMinutes(60)) ?? Enumerable.Empty<string?>();
         }

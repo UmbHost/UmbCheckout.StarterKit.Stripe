@@ -36,9 +36,14 @@ namespace UmbCheckout.StarterKit.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SubmitForm()
         {
+            if (CurrentPage == null)
+            {
+                throw new InvalidOperationException();
+            }
+
             var formCollection = HttpContext.Request.Form;
 
-            if (!formCollection.ContainsKey("formId") && Guid.TryParse(formCollection["formId"], out var formId))
+            if (!formCollection.ContainsKey("formId") && Guid.TryParse(formCollection["formId"], out _))
             {
                 ModelState.AddModelError(string.Empty, "The form id is invalid");
             }
@@ -91,18 +96,35 @@ namespace UmbCheckout.StarterKit.Web.Controllers
 
                 if (form != null)
                 {
-                    var formFields = form.Content.Value<IEnumerable<BlockListItem>>("formFields");
-                    var formMessageField = form.Content.Value<IEnumerable<BlockListItem>>("message");
-                    ValidateForm(formFields, formCollection);
-                    ValidateForm(formMessageField, formCollection, true);
+                    var formFields = form.Content.Value<IEnumerable<BlockListItem>>("formFields")?.ToList();
+                    var formMessageField = form.Content.Value<IEnumerable<BlockListItem>>("message")?.ToList();
+                    if (formFields != null && formFields.Any())
+                    {
+                        ValidateForm(formFields, formCollection);
+                    }
+
+                    if (formMessageField != null && formMessageField.Any())
+                    {
+                        ValidateForm(formMessageField, formCollection, true);
+                    }
+
 
                     if (ModelState.IsValid)
                     {
                         try
                         {
+                            if (_globalSettings.Smtp == null)
+                            {
+                                throw new InvalidOperationException("The SMTP settings have not been set");
+                            }
+
+                            var formMessage = string.Empty;
                             var messageBlock = formMessageField?.FirstOrDefault();
-                            var messageKey = messageBlock.Content.Key.ToString("N");
-                            var formMessage = formCollection[messageKey];
+                            if (messageBlock != null)
+                            {
+                                var messageKey = messageBlock.Content.Key.ToString("N");
+                                formMessage = formCollection[messageKey];
+                            }
                             var fromAddress = form.Content.HasValue("fromEmailAddress") ? form.Content.Value<string>("fromEmailAddress") : _globalSettings.Smtp.From;
 
                             var subject = form.Content.Value<string>("subject");
@@ -113,23 +135,28 @@ namespace UmbCheckout.StarterKit.Web.Controllers
 
                             foreach (var formField in formCollection.Where(x => Guid.TryParse(x.Key, out _)))
                             {
-                                if (formFields.Select(x => x.Content.Key).Any(x => x == Guid.Parse(formField.Key)))
+                                if (formFields != null && formFields.Select(x => x.Content.Key).Any(x => x == Guid.Parse(formField.Key)))
                                 {
                                     var label = formFields.FirstOrDefault(x => x.Content.Key == Guid.Parse(formField.Key))
-                                        .Content.Value<string>("label");
+                                        ?.Content.Value<string>("label");
 
                                     sb.AppendLine($"{label}: {formField.Value}");
                                 }
                             }
 
-                            sb.AppendLine($"{messageBlock.Content.Value<string>("label")}: {formMessage}");
+                            sb.AppendLine($"{messageBlock?.Content.Value<string>("label")}: {formMessage}");
 
                             EmailMessage message = new EmailMessage(fromAddress, form.Content.Value<string>("toEmailAddress"), subject, sb.ToString(), false);
                             await _emailSender.SendAsync(message, emailType: "Form Submission");
                             TempData.Remove("FieldValues");
                             TempData["FormSubmittedSuccessfully"] = true;
 
-                            return RedirectToUmbracoPage(form.Content.Value<IPublishedContent>("confirmationPage"));
+                            if (form.Content.HasValue("confirmationPage"))
+                            {
+                                return RedirectToUmbracoPage(form.Content.Value<IPublishedContent>("confirmationPage")!);
+                            }
+
+                            return CurrentUmbracoPage();
                         }
                         catch (Exception ex)
                         {
@@ -172,7 +199,7 @@ namespace UmbCheckout.StarterKit.Web.Controllers
                         if (!alwaysRequired && formFieldItem.Content.Value<bool>("required") &&
                             string.IsNullOrEmpty(formField.Value))
                         {
-                            ModelState.AddModelError(string.Empty, formFieldItem.Content.Value<string>("validationErrorMessage"));
+                            ModelState.AddModelError(string.Empty, formFieldItem.Content.Value<string>("validationErrorMessage") ?? "A validation error occurred");
                         }
 
                         if (formFieldItem.Content.Value<bool>("validation"))
@@ -180,14 +207,14 @@ namespace UmbCheckout.StarterKit.Web.Controllers
                             if (formFieldItem.Content.Value<string>("validationType") == "customValidation" &&
                                 !string.IsNullOrEmpty(
                                     formFieldItem.Content.Value<string>("customValidationRegex")) &&
-                                !Regex.IsMatch(formField.Value, formFieldItem.Content.Value<string>("customValidationRegex")))
+                                !Regex.IsMatch(formField.Value, formFieldItem.Content.Value<string>("customValidationRegex") ?? string.Empty))
                             {
-                                ModelState.AddModelError(string.Empty, formFieldItem.Content.Value<string>("validationErrorMessage"));
+                                ModelState.AddModelError(string.Empty, formFieldItem.Content.Value<string>("validationErrorMessage") ?? string.Empty);
                             }
                             else if (!Regex.IsMatch(formField.Value,
-                                         formFieldItem.Content.Value<string>("validationType")))
+                                         formFieldItem.Content.Value<string>("validationType") ?? string.Empty))
                             {
-                                ModelState.AddModelError(string.Empty, formFieldItem.Content.Value<string>("validationErrorMessage"));
+                                ModelState.AddModelError(string.Empty, formFieldItem.Content.Value<string>("validationErrorMessage") ?? "A validation error occurred");
                             }
                         }
                     }

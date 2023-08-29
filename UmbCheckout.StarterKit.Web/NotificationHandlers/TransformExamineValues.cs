@@ -23,7 +23,7 @@ namespace UmbCheckout.StarterKit.Web.NotificationHandlers
         {
             if (_examineManager.TryGetIndex(Constants.UmbracoIndexes.ExternalIndexName, out var index))
             {
-                ((BaseIndexProvider)index).TransformingIndexValues += (object sender, IndexingItemEventArgs e) =>
+                ((BaseIndexProvider)index).TransformingIndexValues += (_, e) =>
                 {
                     var values = e.ValueSet.Values.ToDictionary(x => x.Key, x => (IEnumerable<object>)x.Value);
                     if (e.ValueSet.ItemType.InvariantEquals("product") || e.ValueSet.ItemType.InvariantEquals("blogPost"))
@@ -40,11 +40,11 @@ namespace UmbCheckout.StarterKit.Web.NotificationHandlers
 
                                     foreach (var cat in categoriesStringArray)
                                     {
-                                        var category = ctx.UmbracoContext.Content.GetById(UdiParser.Parse(cat));
+                                        var category = ctx.UmbracoContext.Content?.GetById(UdiParser.Parse(cat));
 
-                                        if (category != null)
+                                        if (category != null && category.HasValue("categoryName"))
                                         {
-                                            categoryNames.Add(category.Value<string>("categoryName").ToUrlSegment(_shortStringHelper));
+                                            categoryNames.Add(category.Value<string>("categoryName")?.ToUrlSegment(_shortStringHelper)!);
                                         }
                                     }
 
@@ -54,8 +54,9 @@ namespace UmbCheckout.StarterKit.Web.NotificationHandlers
 
                             e.SetValues(values);
                         }
-                        catch (Exception exception)
+                        catch (Exception)
                         {
+                            // ignored
                         }
                     }
                 };

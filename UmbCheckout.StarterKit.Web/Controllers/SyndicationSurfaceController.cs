@@ -37,7 +37,7 @@ namespace UmbCheckout.StarterKit.Web.Controllers
         public IActionResult Rss()
         {
             using var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
-            var rootNode = context.Content.GetAtRoot()
+            var rootNode = context.Content?.GetAtRoot()
                 .FirstOrDefault(x => x.ContentType.Alias == "home");
             if (rootNode?.GetBlogPage() != null)
             {
@@ -45,7 +45,7 @@ namespace UmbCheckout.StarterKit.Web.Controllers
                 using (var xmlWriter = XmlWriter.Create(stream, _xmlWriterSettings))
                 {
                     var siteSettings = rootNode.GetSiteSettings();
-                    var feed = _syndicationXmlService.GenerateRssXml(siteSettings.Value<string>("feedTitle"), siteSettings.Value<string>("feedDescription"));
+                    var feed = _syndicationXmlService.GenerateRssXml(siteSettings?.Value<string>("feedTitle") ?? string.Empty, siteSettings?.Value<string>("feedDescription") ?? string.Empty);
                     feed.WriteTo(xmlWriter);
                     xmlWriter.Flush();
                 }
@@ -60,7 +60,7 @@ namespace UmbCheckout.StarterKit.Web.Controllers
         public IActionResult Atom()
         {
             using var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
-            var rootNode = context.Content.GetAtRoot()
+            var rootNode = context.Content?.GetAtRoot()
                 .FirstOrDefault(x => x.ContentType.Alias == "home");
             if (rootNode?.GetBlogPage() != null)
             {
@@ -68,7 +68,7 @@ namespace UmbCheckout.StarterKit.Web.Controllers
                 using (var xmlWriter = XmlWriter.Create(stream, _xmlWriterSettings))
                 {
                     var siteSettings = rootNode.GetSiteSettings();
-                    var feed = _syndicationXmlService.GenerateAtomXml(siteSettings.Value<string>("feedTitle"), siteSettings.Value<string>("feedDescription"));
+                    var feed = _syndicationXmlService.GenerateAtomXml(siteSettings?.Value<string>("feedTitle") ?? string.Empty, siteSettings?.Value<string>("feedDescription") ?? string.Empty);
                     feed.WriteTo(xmlWriter);
                     xmlWriter.Flush();
                 }

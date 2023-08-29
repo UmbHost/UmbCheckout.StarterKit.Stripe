@@ -30,7 +30,7 @@ namespace UmbCheckout.StarterKit.Web.Services.Search
             return response;
         }
 
-        private SearchResults? SearchUsingExamine(BlogSearchCriteria criteria)
+        private SearchResults SearchUsingExamine(BlogSearchCriteria criteria)
         {
             var results = new SearchResults();
             if (_examineManager.TryGetIndex(Umbraco.Cms.Core.Constants.UmbracoIndexes.ExternalIndexName, out var index))
@@ -56,19 +56,28 @@ namespace UmbCheckout.StarterKit.Web.Services.Search
                     query.And().Field("categoryNames", criteria.Category.ToUrlSegment(_shortStringHelper));
                 }
 
-
-                string stringToParse = query.ToString();
-                int indexOfPropertyValue = stringToParse.IndexOf("LuceneQuery:") + 12;
-                string rawQuery = stringToParse.Substring(indexOfPropertyValue).TrimEnd('}');
-                var response = index.Searcher.CreateQuery("content").NativeQuery(rawQuery).Execute(QueryOptions.SkipTake((criteria.CurrentPage - 1) * criteria.PageSize, criteria.PageSize));
                 var searchResults = new List<IPublishedContent>();
-
-                foreach (var id in response.Select(x => x.Id))
+                var stringToParse = query.ToString();
+                var indexOfPropertyValue = stringToParse?.IndexOf("LuceneQuery:") + 12;
+                if (indexOfPropertyValue.HasValue)
                 {
-                    searchResults.Add(_umbracoHelper.Content(id));
+                    var rawQuery = stringToParse?.Substring(indexOfPropertyValue.Value).TrimEnd('}');
+                    var response = index.Searcher.CreateQuery("content").NativeQuery(rawQuery).Execute(QueryOptions.SkipTake((criteria.CurrentPage - 1) * criteria.PageSize, criteria.PageSize));
+                    foreach (var id in response.Select(x => x.Id))
+                    {
+                        if (!string.IsNullOrEmpty(id))
+                        {
+                            var contentItem = _umbracoHelper.Content(id);
+
+                            if (contentItem != null)
+                            {
+                                searchResults.Add(contentItem);
+                            }
+                        }
+                    }
+                    results.Items = searchResults;
+                    results.TotalResults = response.TotalItemCount;
                 }
-                results.Items = searchResults;
-                results.TotalResults = response.TotalItemCount;
             }
 
             return results;

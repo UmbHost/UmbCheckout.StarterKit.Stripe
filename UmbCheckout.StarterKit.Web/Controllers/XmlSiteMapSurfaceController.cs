@@ -25,32 +25,49 @@ namespace UmbCheckout.StarterKit.Web.Controllers
 
         [Route("sitemap.xml")]
         [ResponseCache(Duration = 900, VaryByHeader = "Host")]
-        public ContentResult SiteMap()
+        public IActionResult SiteMap()
         {
             using var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
-            var rootNode = context.Content.GetAtRoot()
+            var rootNode = context.Content?.GetAtRoot()
                 .FirstOrDefault(x => x.ContentType.Alias == "home");
-            return Content(_xmlSiteMapXmlService.GenerateXml(rootNode.Key), "text/xml", Encoding.UTF8);
+
+            if (rootNode != null)
+            {
+                return Content(_xmlSiteMapXmlService.GenerateXml(rootNode.Key), "text/xml", Encoding.UTF8);
+            }
+
+            return NotFound();
         }
 
         [Route("products.xml")]
         [ResponseCache(Duration = 900, VaryByHeader = "Host")]
-        public ContentResult HomesSiteMap()
+        public IActionResult HomesSiteMap()
         {
             using var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
-            var rootNode = context.Content.GetAtRoot()
-                .FirstOrDefault(x => x.ContentType.Alias == "home").GetProductsPage();
-            return Content(_xmlSiteMapXmlService.GenerateXml(rootNode.Key, false), "text/xml", Encoding.UTF8);
+            var rootNode = context.Content?.GetAtRoot()
+                .FirstOrDefault(x => x.ContentType.Alias == "home")?.GetProductsPage();
+            if (rootNode != null)
+            {
+                return Content(_xmlSiteMapXmlService.GenerateXml(rootNode.Key), "text/xml", Encoding.UTF8);
+            }
+
+            return NotFound();
         }
 
         [Route("blogposts.xml")]
         [ResponseCache(Duration = 900, VaryByHeader = "Host")]
-        public ContentResult ParksSiteMap()
+        public IActionResult BlogSiteMap()
         {
             using var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
-            var rootNode = context.Content.GetAtRoot()
-                .FirstOrDefault(x => x.ContentType.Alias == "home").GetBlogPage();
-            return Content(_xmlSiteMapXmlService.GenerateXml(rootNode.Key, false), "text/xml", Encoding.UTF8);
+            var rootNode = context.Content?.GetAtRoot()
+                .FirstOrDefault(x => x.ContentType.Alias == "home")?.GetBlogPage();
+
+            if (rootNode != null)
+            {
+                return Content(_xmlSiteMapXmlService.GenerateXml(rootNode.Key), "text/xml", Encoding.UTF8);
+            }
+
+            return NotFound();
         }
     }
 }

@@ -35,30 +35,37 @@ namespace UmbCheckout.StarterKit.Web.Services
                 context.OriginalRequestUrl.AbsoluteUri,
                 DateTime.Now)
             {
-                Copyright = new TextSyndicationContent($"{DateTime.Now.Year} {rootNode.GetSiteSettings().Value<string>("siteName")}")
+                Copyright = new TextSyndicationContent($"{DateTime.Now.Year} {rootNode?.GetSiteSettings()?.Value<string>("siteName")}")
             };
-            var nodes = rootNode
-                .GetBlogPage().Children
-                .Where(x => x.HasTemplate())
-                .Where(x => x.IsVisible())
-                .Where(x => x.Value<bool>("hideFromXmlSitemap") == false)
-                .OrderByDescending(x => x.Value<DateTime>("displayDate"));
 
-            var items = new List<SyndicationItem>();
-
-            foreach (var node in nodes)
+            if (rootNode != null)
             {
-                var title = node.HasValue("heading") ? node.Value<string>("heading") : node.Name;
-                var description = new TextSyndicationContent(node.Value<string>("excerpt"));
-                items.Add(
-                    new SyndicationItem(
-                        title,
-                        description,
-                        new Uri(node.Url(null, UrlMode.Absolute)),
-                        node.UrlSegment(),
-                        node.Value<DateTime>("displayDate")));
+                var nodes = rootNode
+                    .GetBlogPage()?.Children?
+                    .Where(x => x.HasTemplate())
+                    .Where(x => x.IsVisible())
+                    .Where(x => x.Value<bool>("hideFromXmlSitemap") == false)
+                    .OrderByDescending(x => x.Value<DateTime>("displayDate")).ToList();
+
+                var items = new List<SyndicationItem>();
+
+                if (nodes != null && nodes.Any())
+                {
+                    foreach (var node in nodes)
+                    {
+                        var title = node.HasValue("heading") ? node.Value<string>("heading") : node.Name;
+                        var description = new TextSyndicationContent(node.Value<string>("excerpt"));
+                        items.Add(
+                            new SyndicationItem(
+                                title,
+                                description,
+                                new Uri(node.Url(null, UrlMode.Absolute)),
+                                node.UrlSegment(),
+                                node.Value<DateTime>("displayDate")));
+                    }
+                    feed.Items = items;
+                }
             }
-            feed.Items = items;
 
             return feed;
         }

@@ -22,7 +22,13 @@ namespace UmbCheckout.StarterKit.Web.Services
         public string GenerateXml(Guid startNode, bool includeSelf = true)
         {
             using var context = _umbracoContextFactory.EnsureUmbracoContext();
-            var rootNode = context.UmbracoContext.Content.GetById(startNode);
+            var rootNode = context.UmbracoContext.Content?.GetById(startNode);
+
+            if (rootNode == null)
+            {
+                return string.Empty;
+            }
+
             IEnumerable<IPublishedContent> nodes;
             if (includeSelf)
             {

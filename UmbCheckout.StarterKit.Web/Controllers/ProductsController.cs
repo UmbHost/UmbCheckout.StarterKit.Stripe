@@ -23,12 +23,13 @@ namespace UmbCheckout.StarterKit.Web.Controllers
 
         public IActionResult Products(int page = 1, string? keywords = null, string? category = null)
         {
+            var pageSize = CurrentPage?.Value<int>("maximumPerPage") ?? 9;
             var searchCriteria = new ProductSearchCriteria
             {
                 Keywords = keywords,
                 Category = category,
                 CurrentPage = page,
-                PageSize = CurrentPage.Value<int>("maximumPerPage")
+                PageSize = pageSize
             };
 
             var searchResults = _productSearchService.SearchProducts(searchCriteria);
@@ -44,9 +45,19 @@ namespace UmbCheckout.StarterKit.Web.Controllers
 
         private IEnumerable<string?> GetProductCategories()
         {
-            return _cache.GetCacheItem("ProductCategories", () => CurrentPage.GetHomePage()
-                    .FirstChildOfType("productCategories")
-                    .Children()
+            if (CurrentPage == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            if (CurrentPage.GetHomePage() == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return _cache.GetCacheItem("ProductCategories", () => CurrentPage.GetHomePage()!
+                    .FirstChildOfType("productCategories")!
+                    .Children()!
                     .Select(x => x.Value<string>("categoryName")),
                 TimeSpan.FromMinutes(60)) ?? Enumerable.Empty<string?>();
         }

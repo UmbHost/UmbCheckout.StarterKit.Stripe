@@ -23,12 +23,13 @@ namespace UmbCheckout.StarterKit.Web.Controllers
 
         public IActionResult Blog(int page = 1, string? keywords = null, string? category = null)
         {
+            var pageSize = CurrentPage?.Value<int>("maximumPerPage") ?? 9;
             var searchCriteria = new BlogSearchCriteria
             {
                 Keywords = keywords,
                 Category = category,
                 CurrentPage = page,
-                PageSize = CurrentPage.Value<int>("maximumPerPage")
+                PageSize = pageSize
             };
 
             var searchResults = _blogSearchService.SearchProducts(searchCriteria);
@@ -44,9 +45,19 @@ namespace UmbCheckout.StarterKit.Web.Controllers
 
         private IEnumerable<string?> GetBlogCategories()
         {
-            return _cache.GetCacheItem("BlogCategories", () => CurrentPage.GetHomePage()
-                    .FirstChildOfType("blogCategories")
-                    .Children()
+            if (CurrentPage == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            if (CurrentPage.GetHomePage() == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return _cache.GetCacheItem("BlogCategories", () => CurrentPage.GetHomePage()!
+                    .FirstChildOfType("blogCategories")!
+                    .Children()!
                     .Select(x => x.Value<string>("categoryName")),
                 TimeSpan.FromMinutes(60)) ?? Enumerable.Empty<string?>();
         }

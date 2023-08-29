@@ -10,7 +10,7 @@ namespace UmbCheckout.StarterKit.Web.ViewComponents.Blog
         public IViewComponentResult Invoke(IPublishedContent content, string heading = "Recent Blog Posts", string orderByAlias = "displayName")
         {
             var blogRoot = content.GetBlogPage();
-            var latestBlogPosts = blogRoot.Children().OrderByDescending(x => x.Value<DateTime>(orderByAlias)).Take(3);
+            var latestBlogPosts = blogRoot?.Children()?.OrderByDescending(x => x.Value<DateTime>(orderByAlias)).Take(3);
 
             var model = new RecentBlogPostsViewModel
             {

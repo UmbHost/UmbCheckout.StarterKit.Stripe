@@ -30,7 +30,7 @@ namespace UmbCheckout.StarterKit.Web.Controllers
         public IActionResult Index()
         {
             using var context = _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext;
-            var rootNode = context.Content.GetAtRoot()
+            var rootNode = context.Content?.GetAtRoot()
                 .FirstOrDefault(x => x.ContentType.Alias == "home");
             var allowItems = _settings.Robots?.Allow;
             var disallowItems = _settings.Robots?.Disallow;
@@ -43,18 +43,18 @@ namespace UmbCheckout.StarterKit.Web.Controllers
                 {
                     stringBuilder.AppendLine("Allow: " + allow);
                 }
-                stringBuilder.AppendLine("Sitemap: https://" + _httpContextAccessor.HttpContext.Request.Host.Host + "/sitemap.xml");
+                stringBuilder.AppendLine("Sitemap: https://" + _httpContextAccessor.HttpContext?.Request.Host.Host + "/sitemap.xml");
 
                 if (rootNode?.GetProductsPage() != null)
                 {
-                    stringBuilder.AppendLine("Sitemap: https://" + _httpContextAccessor.HttpContext.Request.Host.Host + "/products.xml");
+                    stringBuilder.AppendLine("Sitemap: https://" + _httpContextAccessor.HttpContext?.Request.Host.Host + "/products.xml");
                 }
 
                 if (rootNode?.GetBlogPage() != null)
                 {
-                    stringBuilder.AppendLine("Sitemap: https://" + _httpContextAccessor.HttpContext.Request.Host.Host + "/blogposts.xml");
-                    stringBuilder.AppendLine("Sitemap: https://" + _httpContextAccessor.HttpContext.Request.Host.Host + "/blog/feed.atom");
-                    stringBuilder.AppendLine("Sitemap: https://" + _httpContextAccessor.HttpContext.Request.Host.Host + "/blog/feed.rss");
+                    stringBuilder.AppendLine("Sitemap: https://" + _httpContextAccessor.HttpContext?.Request.Host.Host + "/blogposts.xml");
+                    stringBuilder.AppendLine("Sitemap: https://" + _httpContextAccessor.HttpContext?.Request.Host.Host + "/blog/feed.atom");
+                    stringBuilder.AppendLine("Sitemap: https://" + _httpContextAccessor.HttpContext?.Request.Host.Host + "/blog/feed.rss");
                 }
             }
 
