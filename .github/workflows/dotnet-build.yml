@@ -9,6 +9,7 @@ jobs:
     runs-on: windows-latest 
 
     env:
+      CONFIG: 'Release'
       OUT_FOLDER: './build.out/'
 
     steps:
