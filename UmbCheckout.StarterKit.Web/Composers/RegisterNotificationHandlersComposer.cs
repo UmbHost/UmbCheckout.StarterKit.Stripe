@@ -11,6 +11,7 @@ namespace UmbCheckout.StarterKit.Web.Composers
             builder.AddNotificationHandler<ContentDeletedNotification, OnContentDeletedNotificationHandler>();
             builder.AddNotificationHandler<ContentMovedToRecycleBinNotification, OnContentMovedToRecycleBinNotification>();
             builder.AddNotificationHandler<UmbracoApplicationStartingNotification, TransformExamineValues>();
+            builder.AddNotificationHandler<UmbracoApplicationStartingNotification, CreateBundlesNotificationHandler>();
         }
     }
 }

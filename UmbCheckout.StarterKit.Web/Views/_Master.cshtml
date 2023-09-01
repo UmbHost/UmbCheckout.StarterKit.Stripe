@@ -1,8 +1,13 @@
 ﻿@using MetaMomentum.Models
+@using Microsoft.Extensions.Options
 @using UmbCheckout.StarterKit.Web.Extensions
+@using Umbraco.Cms.Core.Configuration.Models
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject IOptions<HostingSettings> HostingSettings
 @{
     Layout = null;
+
+    var debugMode = HostingSettings.Value.Debug;
 }
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -13,9 +18,9 @@
 
     <partial name="Partials/MetaMomentum/RenderMetaTags" model="@(Model.Value<MetaValues>("metaData"))" />
 
-    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
-    @await SmidgeHelper.CssHereAsync()
+    @await SmidgeHelper.CssHereAsync("bootstrap-css-bundle", debug: debugMode)
+    @await SmidgeHelper.CssHereAsync("custom-css-bundle", debug: debugMode)
+    @await SmidgeHelper.CssHereAsync(debug: debugMode)
     @await RenderSectionAsync("HeadEnd", false)
 </head>
 <body>
@@ -40,8 +45,8 @@
             </div>
         </div>
     </footer>
-    @await SmidgeHelper.JsHereAsync()
-    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @await SmidgeHelper.JsHereAsync(debug: debugMode)
+    @await SmidgeHelper.JsHereAsync("bootstrap-js-bundle", debug: debugMode)
     @await RenderSectionAsync("BodyEnd", false)
 </body>
 </html>
