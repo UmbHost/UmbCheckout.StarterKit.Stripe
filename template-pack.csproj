@@ -18,7 +18,7 @@
     <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © UmbHost Limited</Copyright>
     <PackageIcon>icon_nuget_umbcheckout_starterkit.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/UmbHost/UmbCheckout.StarterKit</RepositoryUrl>
+    <RepositoryUrl>https://github.com/UmbHost/UmbCheckout.StarterKit.Stripe</RepositoryUrl>
     <PackageProjectUrl>https://umbcheckout.net</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
