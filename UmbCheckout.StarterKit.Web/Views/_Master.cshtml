@@ -47,6 +47,7 @@
     </footer>
     @await SmidgeHelper.JsHereAsync(debug: debugMode)
     @await SmidgeHelper.JsHereAsync("bootstrap-js-bundle", debug: debugMode)
+    @await SmidgeHelper.CssHereAsync("custom-js-bundle", debug: debugMode)
     @await RenderSectionAsync("BodyEnd", false)
 </body>
 </html>

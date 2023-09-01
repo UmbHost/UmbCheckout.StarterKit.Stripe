@@ -37,6 +37,10 @@ namespace UmbCheckout.StarterKit.Web.NotificationHandlers
                     new[] {
                         "~/lib/bootstrap/js/bootstrap.bundle.min.js"
                     });
+
+                _runtimeMinifier.CreateCssBundle("custom-js-bundle",
+                    BundlingOptions.OptimizedAndComposite,
+                    new[] { "~/scripts/custom.js" });
             }
         }
     }
