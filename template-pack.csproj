@@ -6,7 +6,7 @@
     <Title>UmbCheckout.StarterKit.Stripe</Title>
     <Authors>UmbHost Limited</Authors>
     <Description>A project template for creating a new Umbraco site using the UmbCheckout Starter Kit configured to work with Stripe</Description>
-    <PackageTags>dotnet-new;templates;umbraco;bootstrap;umbcheckout;stripe</PackageTags>
+    <PackageTags>dotnet-new;templates;umbraco;bootstrap;umbcheckout;stripe;umbraco-marketplace</PackageTags>
 
     <TargetFramework>net6.0</TargetFramework>
 
