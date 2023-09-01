@@ -22,6 +22,7 @@
     <PackageProjectUrl>https://umbcheckout.net</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>umbraco-marketplace;umbraco;ecommerce;umbcheckout;commerce;shop;stripe;checkout;starterkit;template;</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
