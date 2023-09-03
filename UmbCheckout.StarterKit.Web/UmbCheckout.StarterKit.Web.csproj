@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="IISUrlRewrite.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IISUrlRewrite.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bergmania.OpenStreetMap" Version="5.3.1" />
+    <PackageReference Include="LazZiya.TagHelpers" Version="6.0.2" />
+    <PackageReference Include="MetaMomentum" Version="2.2.0" />
+    <PackageReference Include="NestingContently.Umbraco" Version="4.0.0" />
+    <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="3.0.0" />
+    <PackageReference Include="Our.Umbraco.Community.Contentment" Version="4.4.4" />
+    <PackageReference Include="Our.Umbraco.ConditionalDisplayers" Version="3.4.0" />
+    <PackageReference Include="Our.Umbraco.TagHelpers" Version="1.2.0" />
+    <PackageReference Include="Our.Umbraco.TheDashboard" Version="10.0.1" />
+    <PackageReference Include="Our.Umbraco.UmbNav.Web" Version="2.0.8" />
+    <PackageReference Include="ourHtagEditor" Version="2.0.1" />
+    <PackageReference Include="Skybrud.Umbraco.Redirects" Version="4.0.13" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="6.0.0" />
+    <PackageReference Include="UmbCheckout" Version="1.0.0-rc.16" />
+    <PackageReference Include="UmbCheckout.Stripe" Version="1.0.0-rc.16" />
+    <PackageReference Include="UmbCheckout.Stripe.uSync" Version="1.0.0-rc.16" />
+    <PackageReference Include="UmbCheckout.uSync" Version="1.0.0-rc.16" />
+    <PackageReference Include="Umbraco.Cms" Version="10.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
+    <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.9" />
+    <PackageReference Include="Umbraco.Community.CSPManager" Version="1.1.0-alpha" />
+    <PackageReference Include="uSync" Version="10.6.2" />
+    <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2.0.9" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Razor files are needed for the backoffice to work correctly -->
+    <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Remove RazorCompileOnBuild and RazorCompileOnPublish when not using ModelsMode InMemoryAuto -->
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>
+    <RazorCompileOnPublish>false</RazorCompileOnPublish>
+    <UserSecretsId>037ba5ce-852c-4d7e-b7ce-42194775631b</UserSecretsId>
+  </PropertyGroup>
+  
+</Project>

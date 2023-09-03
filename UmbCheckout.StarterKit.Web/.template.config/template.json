@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "UmbHost Limited",
+    "classifications": [ "Web", "CMS", "Umbraco", "Bootstrap", "Starter Kit", "UmbCheckout", "Stripe" ],
+    "name": "Umbraco UmbCheckout Starter Kit with Stripe",
+    "description": "A project template for creating a new Umbraco site using the UmbCheckout Starter Kit configured to work with Stripe",
+    "identity": "UmbCheckout.StarterKit.Stripe",
+    "shortName": "umbcheckout.starterkit.stripe",
+      "tags": {
+      "language": "C#",
+      "type": "project"
+    },
+    "preferNameDirectory": true,
+    "sourceName": "UmbCheckout.StarterKit.Web",
+    "guids": [ "299094a3-91de-4e51-8331-cc119eb967ee", "037ba5ce-852c-4d7e-b7ce-42194775631b" ],
+    "symbols": {
+      "httpPort": {
+        "type": "generated",
+        "generator": "port",
+        "parameters": {
+          "fallback": 5000
+        },
+        "replaces": "1788"
+      },
+      "httpsPort": {
+        "type": "generated",
+        "generator": "port",
+        "parameters": {
+          "low": 44300,
+          "high": 44399,
+          "fallback": 5001
+        },
+        "replaces": "44387"
+      },
+      "ConnectionString": {
+        "displayName": "Connection string",
+        "description": "Database connection string used by Umbraco.",
+        "type": "parameter",
+        "datatype": "string",
+        "defaultValue": "",
+        "replaces": "Data Source=|DataDirectory|/Umbraco.sqlite.db;Cache=Shared;Foreign Keys=True;Pooling=True"
+      },
+      "ConnectionStringProviderName": {
+        "displayName": "Connection string provider name",
+        "description": "Database connection string provider name used by Umbraco.",
+        "type": "parameter",
+        "datatype": "string",
+        "defaultValue": "Microsoft.Data.SqlClient",
+        "replaces": "Microsoft.Data.Sqlite"
+      }
+    },
+    "sources": [
+      {
+        "modifiers": [
+          {
+            "exclude": [
+              "umbraco/**",
+              ".config/**",
+              "appsettings.Production.json"
+            ]
+          }
+        ]
+      }
+    ]
+  }
