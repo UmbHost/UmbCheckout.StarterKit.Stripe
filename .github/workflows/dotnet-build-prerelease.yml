@@ -1,4 +1,4 @@
-name: Package up.
+name: Package up Prerelease.
 
 on:
   workflow_dispatch:
