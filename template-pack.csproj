@@ -32,4 +32,8 @@
     <None Include="icon_nuget_umbcheckout_starterkit.png" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Umbraco.Cms" Version="10.6.1" />
+	</ItemGroup>
+
 </Project>
