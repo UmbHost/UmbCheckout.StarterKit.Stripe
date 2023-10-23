@@ -216,12 +216,12 @@
       },
       "uSync": {
         "type": "Direct",
-        "requested": "[10.6.2, )",
-        "resolved": "10.6.2",
-        "contentHash": "9UTzvsVMQmCwp2yB8R88wwQsbPOQzUWYo1dZKN1lR8XX/ha1HmQe5S/oaSvP+LWnvVF/ZmB3g2IKqWSgPZWxjw==",
+        "requested": "[10.7.1, )",
+        "resolved": "10.7.1",
+        "contentHash": "QMBOXyhqiFO+HiCo3ESrTbJAWkrnS+biLAcaxjP/uQEVo+TeK3l2dSZSoCUeYvK5/3+koNzNvyTjXPHGdbfK/g==",
         "dependencies": {
-          "uSync.BackOffice": "10.6.2",
-          "uSync.Backoffice.Assets": "10.6.2"
+          "uSync.BackOffice": "10.7.1",
+          "uSync.Backoffice.Assets": "10.7.1"
         }
       },
       "Azure.Core": {
@@ -2963,39 +2963,39 @@
       },
       "uSync.BackOffice": {
         "type": "Transitive",
-        "resolved": "10.6.2",
-        "contentHash": "9dCyHoCsQb/6ozCBT5lcTwA+aDPzATtUS4SfBVYFNIL7sfxnV/4CUHNMjBHatWScGfc23x5IG6m4SDerYhqWCw==",
+        "resolved": "10.7.1",
+        "contentHash": "6WQT13mI/8m9+/QCby14aXCWEcufS82b+MTyb5yejUKbxfBjKbhtyOhPnO1iJNlBokv10PrlsoDkgo24bkoL+A==",
         "dependencies": {
           "Umbraco.Cms.Web.BackOffice": "10.0.0",
           "Umbraco.Cms.Web.Website": "10.0.0",
-          "uSync.Community.Contrib": "10.6.2",
-          "uSync.Core": "10.6.2"
+          "uSync.Community.Contrib": "10.7.1",
+          "uSync.Core": "10.7.1"
         }
       },
       "uSync.BackOffice.Assets": {
         "type": "Transitive",
-        "resolved": "10.6.2",
-        "contentHash": "kNT9ZVaoPx5KePAUCAdkVBAviE8EgC/VVs8mfXuv2B2tCd9Yjwg825hLmlGY27hJS/q3nMxfcNw0kzioGTFlPg==",
+        "resolved": "10.7.1",
+        "contentHash": "9Q7uOCAHrzekzrb3U3bmZym6kQx1fNjMiXXZc7nPY17YeqwfWa4mb9Khvr8Dis7p4CdqIOGF96HVYHVG/Ss0xA==",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "6.0.4",
           "Umbraco.Cms.Web.BackOffice": "10.0.0",
-          "uSync.BackOffice": "10.6.2"
+          "uSync.BackOffice": "10.7.1"
         }
       },
       "uSync.Community.Contrib": {
         "type": "Transitive",
-        "resolved": "10.6.2",
-        "contentHash": "Yu3LsQxVPL8higpkIGRvyZkuiOPewYr14a2/0UJ6TlcTs6mDdKhQqPHQJi71Lm8KLnkUQmfu2PmLD63yxTlN7g==",
+        "resolved": "10.7.1",
+        "contentHash": "zmFMQ1GXwBCDnmps2xAsIiQ5Byo/BEHrgneOATzpw917TdzBm+3beOOp2BnvJAH+xfErTCHtkwM8SmHNlrXuXg==",
         "dependencies": {
           "Umbraco.Cms.Web.BackOffice": "10.0.0",
           "Umbraco.Cms.Web.Website": "10.0.0",
-          "uSync.Core": "10.6.2"
+          "uSync.Core": "10.7.1"
         }
       },
       "uSync.Core": {
         "type": "Transitive",
-        "resolved": "10.6.2",
-        "contentHash": "ynLk3z/8UdVt4TQk6B1wwzsPo8TevHtTG2Rdzg3b3Mbdm3qhz2D9fNBemEisFRLRcr6tDEAxFJL0vJD0LsCyxQ==",
+        "resolved": "10.7.1",
+        "contentHash": "l6X8tkD/riP23CHGsRl7nFWo1Xwx4PWcb48roK/zhTWHUTWnF9a+cYzVNEH/1gdZGBQ0ONXOTvelvmTE+n1VSg==",
         "dependencies": {
           "Umbraco.Cms.Web.Website": "10.0.0"
         }
