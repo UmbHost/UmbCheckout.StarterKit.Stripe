@@ -125,11 +125,11 @@
       },
       "Skybrud.Umbraco.Redirects": {
         "type": "Direct",
-        "requested": "[4.0.13, )",
-        "resolved": "4.0.13",
-        "contentHash": "GwX7z6qmGRp87/jVgViW1ILIDzIZfrs/E89AgCnrMhJG0g5XZtrSrj42OVqIRBm7hrpNUx4em5D6XVEmUve2ng==",
+        "requested": "[4.0.17, )",
+        "resolved": "4.0.17",
+        "contentHash": "wBwaVRjfmCvpHJLSIEBtrjNzeKdlDDjm5/Ann2MUFsvpwpg08ai+zPAGHzHxez7pxfyLKEzITyvRb1NNVtDwvw==",
         "dependencies": {
-          "Skybrud.Essentials": "1.1.48",
+          "Skybrud.Essentials": "1.1.52",
           "Umbraco.Cms.Core": "[10.0.0, 12.999.0)",
           "Umbraco.Cms.Web.BackOffice": "[10.0.0, 12.999.0)",
           "Umbraco.Cms.Web.Website": "[10.0.0, 12.999.0)"
@@ -1721,8 +1721,8 @@
       },
       "Skybrud.Essentials": {
         "type": "Transitive",
-        "resolved": "1.1.48",
-        "contentHash": "M+PvznGOHdaTQbaCXYpei8v0ByV6wv8DoiyLcnqjdKovhSk8J/Uebvhcx96ddbln2FqmT4e+y9XuNGRHT9NUzw==",
+        "resolved": "1.1.52",
+        "contentHash": "NrEx277eiYUzCltTjSKEuYN7cvceh7YLIXRiZ53uR7BaWkzEuIrrF/zO4JYDjfuyQ22fnt3iInYYHom7qU6BVQ==",
         "dependencies": {
           "Newtonsoft.Json": "9.0.1"
         }
