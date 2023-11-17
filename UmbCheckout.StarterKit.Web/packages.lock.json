@@ -61,11 +61,11 @@
       },
       "Our.Umbraco.Community.Contentment": {
         "type": "Direct",
-        "requested": "[4.5.0, )",
-        "resolved": "4.5.0",
-        "contentHash": "Sq9T2vTKumcD4MVoyPESjOH92zI7E/eEF2pCAVWSHvQQQ+Ii4Kj6I4nA1p0kmPHG4cU9lpYvtpR3C/+r3+GOIw==",
+        "requested": "[4.5.1, )",
+        "resolved": "4.5.1",
+        "contentHash": "HWV8zEKXrmSK/Qw/TZTmZkXAPXocHoTmFyw+wQbc4iIjGmIRF0+efwjYc2k6UPZ1l+lKf2YUo7ug18HQ0mexjw==",
         "dependencies": {
-          "Our.Umbraco.Community.Contentment.Core": "4.5.0"
+          "Our.Umbraco.Community.Contentment.Core": "4.5.1"
         }
       },
       "Our.Umbraco.ConditionalDisplayers": {
@@ -205,13 +205,13 @@
       },
       "Umbraco.Community.CSPManager": {
         "type": "Direct",
-        "requested": "[1.1.0-alpha, )",
-        "resolved": "1.1.0-alpha",
-        "contentHash": "khMY7V53J0uUHehtKyWQOrWF+eKlfQ8o5YrB0xj9yQ/hgvGGEnYB9T/fZK5f1VGGjMIs6UupsjuPojoHMaTx3Q==",
+        "requested": "[1.2.0, )",
+        "resolved": "1.2.0",
+        "contentHash": "a3e451p4Qo8Gsk5qPBVxzKPQp1zfLnBokiqpHaW+pzJZ3nTR8e4zR+dhGVurxfwbTLTQ4Ly4Wj+GE5Zk7m1ywQ==",
         "dependencies": {
           "CommunityToolkit.HighPerformance": "8.0.0",
-          "Umbraco.Cms.Core": "10.3.2",
-          "Umbraco.Cms.Web.BackOffice": "10.3.2"
+          "Umbraco.Cms.Core": "10.7.0",
+          "Umbraco.Cms.Web.BackOffice": "10.7.0"
         }
       },
       "uSync": {
@@ -1425,8 +1425,8 @@
       },
       "Our.Umbraco.Community.Contentment.Core": {
         "type": "Transitive",
-        "resolved": "4.5.0",
-        "contentHash": "dEBzjLP3M6h6+5jC+wp489qC5mDn7rf32apPU3hz5rv1Prm0KEf/C+V+Fr/u7WXtwbRb48QvQs/yILuYfRfmjQ==",
+        "resolved": "4.5.1",
+        "contentHash": "XaG+zuP2mHiSJ34J2bg7R3UFI1zwUpJDq1c2m9h9KW2L9v739WpVN06Gc9gX73PHxf1PnASY/soMuKG2DRLxBQ==",
         "dependencies": {
           "Umbraco.Cms.Web.BackOffice": "[10.0.0, 13.0.0)",
           "Umbraco.Cms.Web.Website": "[10.0.0, 13.0.0)"
