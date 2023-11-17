@@ -28,12 +28,12 @@
   <ItemGroup>
     <Content Include="UmbCheckout.StarterKit.Web\**\*" Exclude="UmbCheckout.StarterKit.Web\**\bin\**;UmbCheckout.StarterKit.Web\**\obj\**;UmbCheckout.StarterKit.Web\umbraco\**;UmbCheckout.StarterKit.Web\appsettings.Production.json;UmbCheckout.StarterKit.Web\**\.config\**" />
     <Compile Remove="**\*" />
-    <None Include="README.md" Pack="true" PackagePath="\"/>
-    <None Include="icon_nuget_umbcheckout_starterkit.png" Pack="true" PackagePath="\"/>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="icon_nuget_umbcheckout_starterkit.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Umbraco.Cms" Version="10.6.1" />
+		<PackageReference Include="Umbraco.Cms" Version="10.7.0" />
 	</ItemGroup>
 
 </Project>
