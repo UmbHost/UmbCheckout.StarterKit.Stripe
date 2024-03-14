@@ -8,7 +8,7 @@
     <Description>A project template for creating a new Umbraco site using the UmbCheckout Starter Kit configured to work with Stripe</Description>
     <PackageTags>dotnet-new;templates;umbraco;bootstrap;umbcheckout;stripe;umbraco-marketplace</PackageTags>
 
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
 
     <IncludeContentInPack>true</IncludeContentInPack>
     <IncludeBuildOutput>false</IncludeBuildOutput>
@@ -33,7 +33,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Umbraco.Cms" Version="10.7.0" />
+		<PackageReference Include="Umbraco.Cms" Version="13.0.0-rc3" />
 	</ItemGroup>
 
 </Project>
