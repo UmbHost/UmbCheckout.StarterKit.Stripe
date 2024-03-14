@@ -4,7 +4,7 @@ UmbCheckout Starter Kit for Stripe is a ready-to-go pre-configured Umbraco site 
 
 ## Umbraco Version
 
-Latest Umbraco V10 LTS
+Umbraco V13.2.0 LTS
 
 ## Documentation
 
@@ -25,7 +25,7 @@ This project is maintained by [UmbHost Limited](https://umbhost.net) and contrib
 
 ## License
 
-Copyright &copy; 2023 [UmbHost Limited](https://umbhost.net), and other contributors
+Copyright &copy; 2024 [UmbHost Limited](https://umbhost.net), and other contributors
 
 The Starter Kit is licensed under the MIT license, any installed packages may use different licenses, be sure to check and use accordingly.
 You can see a list of licenses here:
