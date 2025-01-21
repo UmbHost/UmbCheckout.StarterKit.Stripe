@@ -8,7 +8,7 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
     Layout = "_Master.cshtml";
-    var backgroundImage = Model.HasValue("backgroundImage") ? $"background-image:url({Model.Value<MediaWithCrops>("image").GetCropUrl("hero")}); background-repeat: no-repeat; background-size: cover;" : string.Empty;
+    var backgroundImage = Model.HasValue("backgroundImage") ? $"background-image:url({Model.Value<MediaWithCrops>("backgroundImage").GetCropUrl("hero")}); background-repeat: no-repeat; background-size: cover;" : string.Empty;
     var backgroundColour = Model.HasValue("backgroundColour") ? $"background-color:#{Model.Value<ColorPickerValueConverter.PickedColor>("backgroundColour")};" : string.Empty;
 
 }
